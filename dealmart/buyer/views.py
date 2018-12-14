@@ -1,28 +1,23 @@
 from django.shortcuts import render
-from buyer.serializers import UserSerializer
 from rest_framework.response import Response
-from rest_framework import viewsets
 from django.contrib.auth.models import User
 from rest_framework import status
+from rest_framework import generics
+from rest_framework.authtoken import JWTtoken
 
 
 # Create your views here.
-class SignUp(viewsets.ModelViewSet):
+class SignUp(generics.CreateAPIView):
     """
     List all snippets, or create a new snippet.
     """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-    def post(self, serializer):
-        serializer = UserSerializer(data=serializer.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def list(self, serializer):
-        return Response(serializer.data)
+    def post(self, request, *args, **kwargs):
+        user = User.objects.create_user(request.POST)
+        if user.is_valid():
+            user.save()
+            token = JWTtoken.objects.create(user=user)
+            return Response({'details':'user is created with token :'+token.key}, status=status.HTTP_201_CREATED)
+        return Response("oops sorry", status=status.HTTP_400_BAD_REQUEST)
 
 
 
