@@ -3,11 +3,12 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework import generics
-from rest_framework import permissions
-from rest_framework import viewsets
-from buyer.permissions import IsOwnerOrReadOnly,IsUser
-from django.http import JsonResponse
-# from rest_framework.authtoken import JWTtoken
+from django.template.loader import render_to_string
+from django.contrib import messages
+from django.core.mail import send_mail
+from dealmart.settings import EMAIL_HOST_USER
+from random import *
+from django.views import View
 
 
 # Create your views here.
@@ -25,8 +26,35 @@ class SignUp(generics.ListCreateAPIView):
                                         first_name = request.POST.get('first_name'),
                                         last_name=request.POST.get('last_name')
                                         )
-        user.save()
+        otp = randint(1002, 9999)
+        user.save(commit = False)
+        user.is_active = False
+
+        subject = 'Activate Your Dealmart Account'
+        message = render_to_string('account_activate.html', {
+            'user': user,
+            'OTP': otp,
+        })
+        from_mail = EMAIL_HOST_USER
+        to_mail = [user.email]
+        send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+        messages.success(request, 'Please!Confirm your email to complete registration.')
         return Response({'details': 'user is created'}, status=status.HTTP_201_CREATED)
 
 
+class Activate(generics.CreateAPIView):
 
+    def post(self,request,user_id, *args, **kwargs):
+        code = request.POST.get('otp')
+        try:
+            user = User.objects.get(pk=user_id)
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        if user is not None and user.otp == code:
+            user.is_active = True
+            user.save()
+            login(request, user)
+            # messages.success(request, 'thank you! for email verification')
+            return redirect('edit_profile',user.id)
+        else:
+            return HttpResponse("invalid linkh")
