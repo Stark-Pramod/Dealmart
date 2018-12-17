@@ -1,4 +1,4 @@
-from buyer.serializers import UserSerializer
+from .serializers import UserSerializer,OTPSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
@@ -8,7 +8,8 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from dealmart.settings import EMAIL_HOST_USER
 from random import *
-from django.views import View
+from rest_framework import permissions
+from .models import OTP
 
 
 # Create your views here.
@@ -18,18 +19,21 @@ class SignUp(generics.ListCreateAPIView):
     """
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        user = User.objects.create_user(username=request.POST.get('username'),
+        user= User.objects.create_user(username=request.POST.get('username'),
                                         email=request.POST.get('email'),
                                         password=request.POST.get('password'),
                                         first_name = request.POST.get('first_name'),
-                                        last_name=request.POST.get('last_name')
-                                        )
+                                        last_name=request.POST.get('last_name'),)
         otp = randint(1002, 9999)
-        user.save(commit = False)
+        data = OTP.objects.create(otp=otp,receiver= user)
+        code = OTPSerializer(data=data)
+        if code.is_valid():
+            code.save()
         user.is_active = False
-
+        user.save()
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
             'user': user,
@@ -40,7 +44,7 @@ class SignUp(generics.ListCreateAPIView):
         send_mail(subject, message, from_mail, to_mail, fail_silently=False)
         messages.success(request, 'Please!Confirm your email to complete registration.')
         return Response({'details': 'user is created'}, status=status.HTTP_201_CREATED)
-
+        # return Response({'details':'error'},status = status.HTTP_406_NOT_ACCEPTABLE)
 
 class Activate(generics.CreateAPIView):
 
@@ -57,4 +61,4 @@ class Activate(generics.CreateAPIView):
             # messages.success(request, 'thank you! for email verification')
             return redirect('edit_profile',user.id)
         else:
-            return HttpResponse("invalid linkh")
+            return HttpResponse("invalid link")
