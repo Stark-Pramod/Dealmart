@@ -5,5 +5,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.SignUp.as_view(), name='signup'),
-    # url(r'^activate/(?P<user_id>[0-9]+)/$', views.Activate.as_view(), name='activate'),
+    url(r'^activate/$', views.Activate.as_view(), name='activate'),
     ]
