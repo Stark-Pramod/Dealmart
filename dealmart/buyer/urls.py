@@ -5,5 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.SignUp.as_view(), name='signup'),
-    url(r'^activate/$', views.Activate.as_view(), name='activate'),
+    url(r'^activate/(?P<user_id>[0-9]+)/$', views.Activate.as_view(), name='activate'),
+    url(r'resendotp/(?P<user_id>[0-9]+)/$',views.ResendOtp.as_view(), name='resend-otp'),
+    url(r'login/$',views.Login.as_view(), name='login'),
+    url(r'logout/$',views.Logout.as_view(), name='logout'),
     ]

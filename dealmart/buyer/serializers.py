@@ -14,11 +14,24 @@ class UserSerializer(serializers.ModelSerializer):
                                      allow_blank=False,allow_null=False)
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password',)
+        fields = ('id','username', 'email','first_name', 'last_name', 'password',)
 
 
 class OTPSerializer(serializers.ModelSerializer):
 
+
     class Meta:
         model = OTP
-        fields = ('otp','receiver',)
+        fields = ['otp']
+
+class LoginSerializer(serializers.ModelSerializer):
+
+    uname_or_em = serializers.CharField(allow_null=False,required=True)
+    password = serializers.CharField(style={'input_type': 'password'},required=True,
+                                     allow_blank=False,allow_null=False)
+
+    class Meta:
+        model = User
+        fields = ('uname_or_em','password')
+
+
