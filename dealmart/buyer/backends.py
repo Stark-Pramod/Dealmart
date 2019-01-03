@@ -1,14 +1,13 @@
 from django.contrib.auth.models import User
-from rest_framework.response import Response
 
 def EmailOrUsername(self,uname_or_em,password):
     for user in User.objects.all():
         print(user)
-        if user.email == uname_or_em:
+        if user.email == uname_or_em and user.is_active == True:
             email = uname_or_em
             username=None
             break
-        elif user.username == uname_or_em:
+        elif user.username == uname_or_em and user.is_active == True:
             username = uname_or_em
             email = None
             break

@@ -6,13 +6,12 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from django.template.loader import render_to_string
-from django.contrib import messages
 from django.core.mail import send_mail
 from dealmart.settings import EMAIL_HOST_USER
 from random import *
 from rest_framework import permissions
 from .models import OTP
-from django.contrib.auth import login, authenticate,logout
+from django.contrib.auth import login,logout
 from django.utils import timezone
 from datetime import datetime, timedelta
 
@@ -20,12 +19,11 @@ from datetime import datetime, timedelta
 
 
 # Create your views here.
-class SignUp(generics.ListCreateAPIView):
+class SignUp(APIView):
     """
     List all snippets, or create a new snippet.
     """
     serializer_class = UserSerializer
-    queryset = User.objects.all()
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
@@ -33,23 +31,28 @@ class SignUp(generics.ListCreateAPIView):
         email = request.data.get('email')
         username = request.data.get('username')
         password = request.data.get('password')
-        first_name = request.data.get('first_name')
-        last_name = request.data.get('last_name')
-        if not email:
-            return Response({'error':'email field is required',})
-        if not password:
-            return Response({'error':'password is required',})
+        pass_cnf = request.data.get('pass_cnf')
+        #-------validation of each field--------#
         if not username:
-            return Response({'error':'username is required',})
-        if User.objects.filter(username = username):
+            return Response({'error':'username is required'})
+        if not email:
+            return Response({'error': 'email field is required'})
+        if not password or not pass_cnf:
+            return Response({'error': 'password is required'})
+        if User.objects.filter(username=username):
             return Response({'detail':'Username already taken'},status=status.HTTP_306_RESERVED)
-        if User.objects.filter(email= email):
+        if User.objects.filter(email=email):
             return Response({'detail':'Email already in use'},status=status.HTTP_306_RESERVED)
+        if password != pass_cnf:
+            return Response({'warning': "password didn't match"},
+                            status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        #----------- all field valid -----------#
+
         if serializer.is_valid():
-            user = User.objects.create_user(username=username,email=email,password=password,
-                                                     first_name=first_name,last_name=last_name,)
+            user = User.objects.create_user(username=username,email=email,password=password)
             otp = randint(100000, 1000000)
-            data = OTP.objects.create(otp=otp,receiver= user)
+            data = OTP.objects.create(otp=otp,receiver=user)
             data.save()
             user.is_active = False
             user.save()
@@ -64,7 +67,7 @@ class SignUp(generics.ListCreateAPIView):
             return Response({'details': username+',Please confirm your email to complete registration.',
                              'user_id': user.id },
                             status=status.HTTP_201_CREATED)
-        return Response({'details':'Data not Valid'},status = status.HTTP_406_NOT_ACCEPTABLE)
+        return Response({'details':'Data not Valid'},status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 class Activate(APIView):
@@ -96,7 +99,7 @@ class Activate(APIView):
             receiver.save()
             login(request, receiver)
             otp.delete()
-            return Response({'message': 'Thank you for Email Verification you are successfully logged in',},
+            return Response({'message': 'Thank you for Email Verification you are successfully logged in'},
                             status=status.HTTP_200_OK)
         else:
             return Response({'error':'Invalid OTP',},status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
@@ -174,6 +177,10 @@ class Logout(APIView):
         logout(request)
         return Response({'message':'successfully logged out'},
                         status=status.HTTP_200_OK)
+
+
+class Address(APIView):
+    serializer_class = AddressSerializer
 
 
 
