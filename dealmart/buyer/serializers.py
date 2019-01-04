@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+
 from .models import *
+from phonenumber_field.modelfields import PhoneNumberField
+from rest_framework import exceptions
 from rest_framework.validators import UniqueValidator
 
 
@@ -41,7 +43,12 @@ class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ('first_name','last_name','')
+        fields = '__all__'
+        read_only_fields = ('user',)
+
+
+
+
 
 
 
