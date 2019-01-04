@@ -28,28 +28,11 @@ class SignUp(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
-        email = request.data.get('email')
-        username = request.data.get('username')
-        password = request.data.get('password')
-        pass_cnf = request.data.get('pass_cnf')
-        #-------validation of each field--------#
-        if not username:
-            return Response({'error':'username is required'})
-        if not email:
-            return Response({'error': 'email field is required'})
-        if not password or not pass_cnf:
-            return Response({'error': 'password is required'})
-        if User.objects.filter(username=username):
-            return Response({'detail':'Username already taken'},status=status.HTTP_306_RESERVED)
-        if User.objects.filter(email=email):
-            return Response({'detail':'Email already in use'},status=status.HTTP_306_RESERVED)
-        if password != pass_cnf:
-            return Response({'warning': "password didn't match"},
-                            status=status.HTTP_406_NOT_ACCEPTABLE)
 
-        #----------- all field valid -----------#
-
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
+            email = serializer.validated_data['email']
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
             user = User.objects.create_user(username=username,email=email,password=password)
             otp = randint(100000, 1000000)
             data = OTP.objects.create(otp=otp,receiver=user)
@@ -78,6 +61,7 @@ class Activate(APIView):
     def post(self,request,user_id,*args,**kwargs):
         code = OTPSerializer(data=request.data)
         if code.is_valid(raise_exception=True):
+            code = code.validated_data['otp']
             print(user_id)
             try:
                 otp = OTP.objects.get(receiver=user_id)
@@ -95,7 +79,7 @@ class Activate(APIView):
                 return Response({'detail':'OTP expired!',
                                  'user_id':user_id})
 
-            if otp.otp == int(code):
+            if otp.otp == code:
                 receiver.is_active = True
                 receiver.save()
                 login(request, receiver)

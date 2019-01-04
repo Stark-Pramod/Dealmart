@@ -8,10 +8,14 @@ from rest_framework.validators import UniqueValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=True,allow_blank=False,allow_null=False,)
-                                   # validators=[UniqueValidator(queryset=User.objects.all(),
-                                   #                             message="email is Required",
-                                   #                             lookup='exact')])
+    email = serializers.EmailField(required=True,allow_blank=False,allow_null=False,
+                                   validators=[UniqueValidator(queryset=User.objects.all(),
+                                                               message="email already exists!",
+                                                               lookup='exact')])
+    username = serializers.CharField(required=True,allow_blank=False,allow_null=False,
+                                     validators=[UniqueValidator(queryset=User.objects.all(),
+                                                                 message="username is taken!,try another",
+                                                                 lookup='exact')])
     password = serializers.CharField(style={'input_type': 'password'},required=True,
                                      allow_blank=False,allow_null=False)
     pass_cnf = serializers.CharField(style={'input_type':'password'},required=True)
@@ -20,6 +24,17 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id','username', 'email','password','pass_cnf')
 
+
+    def validate(self, data):
+        email = data.get('email')
+        username = data.get('username')
+        password = data.get('password')
+        pass_cnf = data.get('pass_cnf')
+
+        if password != pass_cnf:
+               raise exceptions.ValidationError("Password didn't matched ")
+        else:
+            return data
 
 class OTPSerializer(serializers.ModelSerializer):
 
