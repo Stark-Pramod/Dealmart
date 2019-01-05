@@ -166,7 +166,15 @@ class AddressView(generics.ListCreateAPIView):
         return Response({'message':'address saved successfully'},
                               status=status.HTTP_200_OK)
 
-# class AddressUpdate()
+class AddressUpdate(APIView):
+    serializer_class = AddressSerializer
+    queryset = Address.objects.all()
+    def post(self,request,ad_id,*args,**kwargs):
+        address = Address.objects.get(id=ad_id)
+        new_address = AddressSerializer(address,data=request.data, partial=True)
+        new_address.is_valid(raise_exception=False)
+        new_address.save()
+        return Response({"detail":"updated successfully"})
 
 
 
