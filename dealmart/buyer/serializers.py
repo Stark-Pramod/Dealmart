@@ -26,8 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     def validate(self, data):
-        email = data.get('email')
-        username = data.get('username')
+
         password = data.get('password')
         pass_cnf = data.get('pass_cnf')
 
@@ -61,8 +60,15 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
-
-
+    def validate(self, data):
+        phone_number = data.get('phone_number')
+        if not phone_number:
+            raise exceptions.ValidationError("Phone number is required!")
+        else:
+            return data
+    #
+    # def create(self, validated_data):
+    #     pass
 
 
 

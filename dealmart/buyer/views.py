@@ -28,30 +28,27 @@ class SignUp(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
-
-        if serializer.is_valid(raise_exception=True):
-            email = serializer.validated_data['email']
-            username = serializer.validated_data['username']
-            password = serializer.validated_data['password']
-            user = User.objects.create_user(username=username,email=email,password=password)
-            otp = randint(100000, 1000000)
-            data = OTP.objects.create(otp=otp,receiver=user)
-            data.save()
-            user.is_active = False
-            user.save()
-            subject = 'Activate Your Dealmart Account'
-            message = render_to_string('account_activate.html', {
-                'user': user,
-                'OTP': otp,
-            })
-            from_mail = EMAIL_HOST_USER
-            to_mail = [user.email]
-            send_mail(subject, message, from_mail, to_mail, fail_silently=False)
-            return Response({'details': username+',Please confirm your email to complete registration.',
-                             'user_id': user.id },
-                            status=status.HTTP_201_CREATED)
-        return Response({'details':'Data not Valid'},status=status.HTTP_406_NOT_ACCEPTABLE)
-
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data['email']
+        username = serializer.validated_data['username']
+        password = serializer.validated_data['password']
+        user = User.objects.create_user(username=username,email=email,password=password)
+        otp = randint(100000, 1000000)
+        data = OTP.objects.create(otp=otp,receiver=user)
+        data.save()
+        user.is_active = False
+        user.save()
+        subject = 'Activate Your Dealmart Account'
+        message = render_to_string('account_activate.html', {
+            'user': user,
+            'OTP': otp,
+         })
+        from_mail = EMAIL_HOST_USER
+        to_mail = [user.email]
+        send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+        return Response({'details': username+',Please confirm your email to complete registration.',
+                                'user_id': user.id },
+                                 status=status.HTTP_201_CREATED)
 
 class Activate(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -60,35 +57,33 @@ class Activate(APIView):
 
     def post(self,request,user_id,*args,**kwargs):
         code = OTPSerializer(data=request.data)
-        if code.is_valid(raise_exception=True):
-            code = code.validated_data['otp']
-            print(user_id)
-            try:
-                otp = OTP.objects.get(receiver=user_id)
-            except(TypeError, ValueError, OverflowError, otp.DoesNotExist):
+        code.is_valid(raise_exception=True)
+        code = code.validated_data['otp']
+        try:
+            otp = OTP.objects.get(receiver=user_id)
+        except(TypeError, ValueError, OverflowError, otp.DoesNotExist):
                 otp = None
-            try:
-                receiver = User.objects.get(id=user_id)
-            except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-                receiver = None
-            if otp is None or receiver is None:
-                return Response({'error':'you are not a valid user'},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            receiver = User.objects.get(id=user_id)
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            receiver = None
+        if otp is None or receiver is None:
+            return Response({'error':'you are not a valid user'},status=status.HTTP_400_BAD_REQUEST)
 
-            elif timezone.now() - otp.sent_on >= timedelta(days=0,hours=0,minutes=2,seconds=0):
-                otp.delete()
-                return Response({'detail':'OTP expired!',
+        elif timezone.now() - otp.sent_on >= timedelta(days=0,hours=0,minutes=2,seconds=0):
+            otp.delete()
+            return Response({'detail':'OTP expired!',
                                  'user_id':user_id})
 
-            if otp.otp == code:
-                receiver.is_active = True
-                receiver.save()
-                login(request, receiver)
-                otp.delete()
-                return Response({'message': 'Thank you for Email Verification you are successfully logged in'},
+        if otp.otp == code:
+            receiver.is_active = True
+            receiver.save()
+            login(request, receiver)
+            otp.delete()
+            return Response({'message': 'Thank you for Email Verification you are successfully logged in'},
                             status=status.HTTP_200_OK)
-            else:
-                return Response({'error':'Invalid OTP',},status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-        return Response({'error':'Invalid OTP',},status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        else:
+            return Response({'error':'Invalid OTP',},status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
 
 
@@ -129,23 +124,23 @@ class Login(APIView):
 
     def post(self,request,*args,**kwargs):
         serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            uname_or_em = serializer.validated_data['uname_or_em']
-            password = serializer.validated_data['password']
-            user = EmailOrUsername(self,uname_or_em = uname_or_em,password=password)
+        serializer.is_valid(raise_exception=True)
+        uname_or_em = serializer.validated_data['uname_or_em']
+        password = serializer.validated_data['password']
+        user = EmailOrUsername(self,uname_or_em = uname_or_em,password=password)
 
-            if user == 2:
-                return Response({'error':'Invalid Username or Email!!'},
+        if user == 2:
+            return Response({'error':'Invalid Username or Email!!'},
                                 status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-            elif user == 3:
-                return Response({'error':'Incorrect Password'},
+        elif user == 3:
+            return Response({'error':'Incorrect Password'},
                                 status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        else:
+            if user.is_active:
+                login(request, user)
+                return Response({'detail':'successfully Logged in!','user_id': user.id})
             else:
-                if user.is_active:
-                   login(request, user)
-                   return Response({'detail':'successfully Logged in!','user_id': user.id})
-                else:
-                   return Response({'error':'Please! varify Your Email First','user_id':user.id},
+                return Response({'error':'Please! varify Your Email First','user_id':user.id},
                                     status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
@@ -166,12 +161,12 @@ class AddressView(generics.ListCreateAPIView):
 
     def post(self,request,*args,**kwargs):
         address = AddressSerializer(data=request.data)
-        if address.is_valid(raise_exception=True):
-            address.save(user=request.user)
-            return Response({'message':'address saved successfully'},
+        address.is_valid(raise_exception=True)
+        address.save(user=request.user)
+        return Response({'message':'address saved successfully'},
                               status=status.HTTP_200_OK)
-        return Response({'error':'Not a valid address!'},
-                         status = status.HTTP_406_NOT_ACCEPTABLE)
+
+# class AddressUpdate()
 
 
 
