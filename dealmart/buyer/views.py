@@ -14,6 +14,7 @@ from .models import OTP
 from django.contrib.auth import login,logout
 from django.utils import timezone
 from datetime import datetime, timedelta
+from rest_framework import mixins
 
 
 
@@ -155,33 +156,49 @@ class Logout(APIView):
                         status=status.HTTP_200_OK)
 
 
-class AddressView(generics.ListCreateAPIView):
+class AddressView(generics.GenericAPIView,mixins.ListModelMixin,
+                  mixins.CreateModelMixin,mixins.DestroyModelMixin,
+                  mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
+    lookup_field = 'id'
 
-    def post(self,request,*args,**kwargs):
-        address = AddressSerializer(data=request.data)
-        address.is_valid(raise_exception=True)
-        address.save(user=request.user)
-        return Response({'message':'address saved successfully'},
-                              status=status.HTTP_200_OK)
-
-class AddressUpdate(APIView):
-    serializer_class = AddressSerializer
-    queryset = Address.objects.all()
+    def get(self, request,id=None,*args,**kwargs):
+        if id:
+            return self.retrieve(request,id)
+        else:
+            return self.list(request)
 
     def put(self,request,ad_id,*args,**kwargs):
-        address = Address.objects.get(id=ad_id)
-        new_address = AddressSerializer(address,data=request.data, partial=True)
-        new_address.is_valid(raise_exception=True)
-        new_address.save()
-        return Response({"detail":"updated successfully"})
+        return self.update(request,id)
 
-    def delete(self,request, ad_id):
-        address = Address.objects.get(id=ad_id)
-        address.delete()
-        return Response({"detail":"successfully deleted",
-                         'address_id':ad_id})
+    def post(self,request,*args,**kwargs):
+        return self.create(request)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        # address = AddressSerializer(data=request.data)
+        # address.is_valid(raise_exception=True)
+        # address.save(user=request.user)
+        # return Response({'message':'address saved successfully'},
+        #                       status=status.HTTP_200_OK)
+
+# class AddressUpdate(APIView):
+#     serializer_class = AddressSerializer
+#     queryset = Address.objects.all()
+#
+#     def put(self,request,ad_id,*args,**kwargs):
+#         address = Address.objects.get(id=ad_id)
+#         new_address = AddressSerializer(address,data=request.data, partial=True)
+#         new_address.is_valid(raise_exception=True)
+#         new_address.save()
+#         return Response({"detail":"updated successfully"})
+#
+#     def delete(self,request, ad_id):
+#         address = Address.objects.get(id=ad_id)
+#         address.delete()
+#         return Response({"detail":"successfully deleted",
+#                          'address_id':ad_id})
 
 
 

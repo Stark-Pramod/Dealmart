@@ -66,9 +66,8 @@ class AddressSerializer(serializers.ModelSerializer):
             raise exceptions.ValidationError("Phone number is required!")
         else:
             return data
-    #
-    # def create(self, validated_data):
-    #     pass
+
+
 
 
 
