@@ -22,6 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
+        write_only_fields = ('pass_cnf',)
         fields = ('id','username', 'email','password','pass_cnf')
 
 

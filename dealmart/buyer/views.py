@@ -161,44 +161,29 @@ class AddressView(generics.GenericAPIView,mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
-    lookup_field = 'id'
+    lookup_url_kwarg = 'ad_id'
 
-    def get(self, request,id=None,*args,**kwargs):
-        if id:
-            return self.retrieve(request,id)
+    def get(self, request,ad_id=None,*args,**kwargs):
+        if ad_id:
+            return self.retrieve(request,ad_id)
         else:
-            return self.list(request)
+            address=Address.objects.filter(user=request.user)
+            serializer = AddressSerializer(data=address)
+            serializer.is_valid()
+            return Response(serializer.data)
 
     def put(self,request,ad_id,*args,**kwargs):
-        return self.update(request,id)
+        return self.update(request,ad_id)
 
     def post(self,request,*args,**kwargs):
         return self.create(request)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        # address = AddressSerializer(data=request.data)
-        # address.is_valid(raise_exception=True)
-        # address.save(user=request.user)
-        # return Response({'message':'address saved successfully'},
-        #                       status=status.HTTP_200_OK)
 
-# class AddressUpdate(APIView):
-#     serializer_class = AddressSerializer
-#     queryset = Address.objects.all()
-#
-#     def put(self,request,ad_id,*args,**kwargs):
-#         address = Address.objects.get(id=ad_id)
-#         new_address = AddressSerializer(address,data=request.data, partial=True)
-#         new_address.is_valid(raise_exception=True)
-#         new_address.save()
-#         return Response({"detail":"updated successfully"})
-#
-#     def delete(self,request, ad_id):
-#         address = Address.objects.get(id=ad_id)
-#         address.delete()
-#         return Response({"detail":"successfully deleted",
-#                          'address_id':ad_id})
+    def delete(self, request,ad_id, *args, **kwargs):
+        return self.destroy(request,ad_id)
+
 
 
 

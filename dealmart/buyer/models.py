@@ -15,7 +15,7 @@ class Address(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     full_name = models.CharField(max_length=20, blank=False,null=False)
     pin_code = models.CharField(max_length=10, blank=False,null=False)
-    phone_number = PhoneNumberField(max_length=12,blank=False,null=False)
+    phone_number = PhoneNumberField(max_length=13,blank=False,null=False)
     residence = models.CharField(max_length=50,blank=False,null=False)
     locality = models.CharField(max_length=60,blank=False,null=False)
     landmark = models.CharField(max_length=50,blank=True,null=True,default='')
