@@ -43,13 +43,13 @@ class SignUp(APIView):
         message = render_to_string('account_activate.html', {
             'user': user,
             'OTP': otp,
-         })
+        })
         from_mail = EMAIL_HOST_USER
         to_mail = [user.email]
         send_mail(subject, message, from_mail, to_mail, fail_silently=False)
         return Response({'details': username+',Please confirm your email to complete registration.',
-                                'user_id': user.id },
-                                 status=status.HTTP_201_CREATED)
+                         'user_id': user.id },
+                        status=status.HTTP_201_CREATED)
 
 class Activate(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -63,7 +63,7 @@ class Activate(APIView):
         try:
             otp = OTP.objects.get(receiver=user_id)
         except(TypeError, ValueError, OverflowError, otp.DoesNotExist):
-                otp = None
+            otp = None
         try:
             receiver = User.objects.get(id=user_id)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
@@ -74,7 +74,7 @@ class Activate(APIView):
         elif timezone.now() - otp.sent_on >= timedelta(days=0,hours=0,minutes=2,seconds=0):
             otp.delete()
             return Response({'detail':'OTP expired!',
-                                 'user_id':user_id})
+                             'user_id':user_id})
 
         if otp.otp == code:
             receiver.is_active = True
@@ -131,17 +131,17 @@ class Login(APIView):
 
         if user == 2:
             return Response({'error':'Invalid Username or Email!!'},
-                                status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+                            status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         elif user == 3:
             return Response({'error':'Incorrect Password'},
-                                status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+                            status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         else:
             if user.is_active:
                 login(request, user)
                 return Response({'detail':'successfully Logged in!','user_id': user.id})
             else:
                 return Response({'error':'Please! varify Your Email First','user_id':user.id},
-                                    status=status.HTTP_406_NOT_ACCEPTABLE)
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 class Logout(APIView):
@@ -154,38 +154,6 @@ class Logout(APIView):
         return Response({'message':'successfully logged out'},
                         status=status.HTTP_200_OK)
 
-
-class AddressView(generics.GenericAPIView,mixins.ListModelMixin,
-                  mixins.CreateModelMixin,mixins.DestroyModelMixin,
-                  mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
-    """
-    Delivery address is retreived,listed,updated and deleted within this view
-    """
-
-    serializer_class = AddressSerializer
-    queryset = Address.objects.all()
-    lookup_url_kwarg = 'ad_id'
-
-    def get(self, request,ad_id=None,*args,**kwargs):
-        if ad_id:
-            return self.retrieve(request,ad_id)
-        else:
-            address=Address.objects.filter(user=request.user)
-            serializer = AddressSerializer(data=address)
-            serializer.is_valid()
-            return Response(serializer.data)
-
-    def put(self,request,ad_id,*args,**kwargs):
-        return self.update(request,ad_id)
-
-    def post(self,request,*args,**kwargs):
-        return self.create(request)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def delete(self, request,ad_id, *args, **kwargs):
-        return self.destroy(request,ad_id)
 
 
 

@@ -32,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
         pass_cnf = data.get('pass_cnf')
 
         if password != pass_cnf:
-               raise exceptions.ValidationError("Password didn't matched ")
+            raise exceptions.ValidationError("Password didn't matched ")
         else:
             return data
 
@@ -52,25 +52,3 @@ class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('uname_or_em','password')
-
-
-class AddressSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Address
-        fields = '__all__'
-        read_only_fields = ('user',)
-
-    def validate(self, data):
-        phone_number = data.get('phone_number')
-        if not phone_number:
-            raise exceptions.ValidationError("Phone number is required!")
-        else:
-            return data
-
-
-
-
-
-
-

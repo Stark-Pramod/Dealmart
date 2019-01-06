@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'buyer',
     'phonenumber_field',
     'rest_framework_jwt',
+    'seller',
     ]
 
 MIDDLEWARE = [
