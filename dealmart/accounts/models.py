@@ -9,7 +9,8 @@ class OTP(models.Model):
     sent_on= models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return ("%s has received otps: %s" %(self.receiver.username,self.otp))
+        return("ok")
+        # return ("%s has received otps: %s" %(self.receiver.username,self.otp))
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)

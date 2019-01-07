@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import *
 from phonenumber_field.modelfields import PhoneNumberField
-from rest_framework import exceptions
+from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
 
 
@@ -32,12 +32,14 @@ class UserSerializer(serializers.ModelSerializer):
         pass_cnf = data.get('pass_cnf')
 
         if password != pass_cnf:
-               raise exceptions.ValidationError("Password didn't matched ")
+               raise ValidationError("Password didn't matched ")
+        if len(password) < 6:
+               raise ValidationError("password of minimum 6 digit is required")
         else:
             return data
 
-class OTPSerializer(serializers.ModelSerializer):
 
+class OTPSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OTP
@@ -61,12 +63,12 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
-    def validate(self, data):
-        phone_number = data.get('phone_number')
+    def validate(self, validated_data):
+        phone_number = validated_data.get('phone_number')
         if not phone_number:
-            raise exceptions.ValidationError("Phone number is required!")
+            raise ValidationError("Phone number is required!")
         else:
-            return data
+            return validated_data
 
 
 

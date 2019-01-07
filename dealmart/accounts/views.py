@@ -99,6 +99,9 @@ class ResendOtp(generics.CreateAPIView):
             user = None
         if user is None:
             return Response({'error':'Not a valid user!'})
+        otp = OTP.objects.filter(receiver=user)
+        if otp:
+            otp.delete()
         otp = randint(100000, 1000000)
         data = OTP.objects.create(otp=otp,receiver= user)
         data.save()
@@ -155,7 +158,7 @@ class Logout(APIView):
                         status=status.HTTP_200_OK)
 
 
-class AddressView(generics.GenericAPIView,mixins.ListModelMixin,
+class AddressView(generics.GenericAPIView,
                   mixins.CreateModelMixin,mixins.DestroyModelMixin,
                   mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
     """
@@ -170,8 +173,9 @@ class AddressView(generics.GenericAPIView,mixins.ListModelMixin,
         if ad_id:
             return self.retrieve(request,ad_id)
         else:
-            address=Address.objects.filter(user=request.user)
-            serializer = AddressSerializer(data=address)
+            # return self.list(request)
+            add = Address.objects.filter(user=request.user)
+            serializer = AddressSerializer(data=add,many=True)
             serializer.is_valid()
             return Response(serializer.data)
 
