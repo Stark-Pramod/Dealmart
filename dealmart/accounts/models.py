@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
+# class User(Abs)
 class OTP(models.Model):
     receiver = models.OneToOneField(User, on_delete = models.CASCADE)
     otp = models.IntegerField(null=False,blank=False)
@@ -24,5 +25,4 @@ class Address(models.Model):
 
     def __str__(self):
         return ("% has dilivery address %s"%(self.user.username,self.city))
-
 

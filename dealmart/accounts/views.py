@@ -3,7 +3,7 @@ from .backends import EmailOrUsername
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework import generics
+from rest_framework import generics,viewsets
 from rest_framework.views import APIView
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -14,6 +14,7 @@ from .models import OTP
 from django.contrib.auth import login,logout
 from django.utils import timezone
 from datetime import datetime, timedelta
+from rest_framework.decorators import action
 from rest_framework import mixins
 
 
@@ -158,39 +159,26 @@ class Logout(APIView):
                         status=status.HTTP_200_OK)
 
 
-class AddressView(generics.GenericAPIView,
-                  mixins.CreateModelMixin,mixins.DestroyModelMixin,
-                  mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
-    """
-    Delivery address is retreived,listed,updated and deleted within this view
-    """
-
+class AddressView(viewsets.ModelViewSet):
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
     lookup_url_kwarg = 'ad_id'
 
-    def get(self, request,ad_id=None,*args,**kwargs):
-        if ad_id:
-            return self.retrieve(request,ad_id)
-        else:
-            # return self.list(request)
-            add = Address.objects.filter(user=request.user)
-            serializer = AddressSerializer(data=add,many=True)
-            serializer.is_valid()
-            return Response(serializer.data)
-
-    def put(self,request,ad_id,*args,**kwargs):
-        return self.update(request,ad_id)
-
-    def post(self,request,*args,**kwargs):
-        return self.create(request)
-
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    def delete(self, request,ad_id, *args, **kwargs):
-        return self.destroy(request,ad_id)
+    def list(self, request, *args, **kwargs):
+        add = Address.objects.filter(user=request.user)
+        serializer = AddressSerializer(data=add,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
 
+    @action(methods=['GET'], detail=False)
+    def me(self, request, *args,**kwargs):
+        add = Address.objects.all()
+        serializer = AddressSerializer(data=add,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
 
 
 

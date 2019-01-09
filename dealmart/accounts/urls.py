@@ -1,13 +1,20 @@
 from django.conf.urls import url
 from . import views
+from rest_framework.routers import DefaultRouter
+from django.urls import include
+# from snippets import views
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
 
+router = DefaultRouter()
+router.register(r'address', views.AddressView)
 
 urlpatterns = [
-    url(r'^$', views.SignUp.as_view(), name='signup'),
-    url(r'^activate/(?P<user_id>[0-9]+)/$', views.Activate.as_view(), name='activate'),
-    url(r'resendotp/(?P<user_id>[0-9]+)/$',views.ResendOtp.as_view(), name='resend-otp'),
-    url(r'login/$',views.Login.as_view(), name='login'),
-    url(r'logout/$',views.Logout.as_view(), name='logout'),
-    url(r'address/$',views.AddressView.as_view(),name='address'),
-    url(r'address/(?P<ad_id>[0-9]+)/$',views.AddressView.as_view(), name='update_address')
+    url(r'^api/', include(router.urls)),
+    url(r'^api/signup/$', views.SignUp.as_view(), name='signup'),
+    url(r'^api/activate/(?P<user_id>[0-9]+)/$', views.Activate.as_view(), name='activate'),
+    url(r'^api/resendotp/(?P<user_id>[0-9]+)/$',views.ResendOtp.as_view(), name='resend-otp'),
+    url(r'^api/login/$',views.Login.as_view(), name='login'),
+    url(r'^api/logout/$',views.Logout.as_view(), name='logout'),
+    url(r'^api/docs/', include_docs_urls(title='My API title'))
     ]
