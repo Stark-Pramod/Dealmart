@@ -173,12 +173,12 @@ class AddressView(viewsets.ModelViewSet):
         serializer.is_valid()
         return Response(serializer.data)
 
-    @action(methods=['GET'], detail=False)
-    def me(self, request, *args,**kwargs):
-        add = Address.objects.all()
-        serializer = AddressSerializer(data=add,many=True)
-        serializer.is_valid()
-        return Response(serializer.data)
+    # @action(methods=['GET'], detail=False)
+    # def me(self, request, *args,**kwargs):
+    #     add = Address.objects.all()
+    #     serializer = AddressSerializer(data=add,many=True)
+    #     serializer.is_valid()
+    #     return Response(serializer.data)
 
 
 
