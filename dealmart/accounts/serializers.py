@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from .models import User
 from .models import *
-from phonenumber_field.modelfields import PhoneNumberField
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 

@@ -14,6 +14,8 @@ from .models import OTP
 from django.contrib.auth import login,logout
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from rest_framework.decorators import action
 from rest_framework import mixins
 
