@@ -1,4 +1,5 @@
 from .serializers import *
+from .permissions import *
 from .backends import EmailOrUsername
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -23,7 +24,7 @@ from rest_framework import mixins
 
 
 # Create your views here.
-class SignUp(APIView):
+class BuyerSignUp(APIView):
     """
     List all snippets, or create a new snippet.
     """
@@ -41,7 +42,7 @@ class SignUp(APIView):
         data = OTP.objects.create(otp=otp,receiver=user)
         data.save()
         user.is_active = False
-        user.save()
+        user.save(is_buyer=True)
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
             'user': user,
@@ -53,6 +54,8 @@ class SignUp(APIView):
         return Response({'details': username+',Please confirm your email to complete registration.',
                                 'user_id': user.id },
                                  status=status.HTTP_201_CREATED)
+
+
 
 class Activate(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -164,6 +167,7 @@ class Logout(APIView):
 class AddressView(viewsets.ModelViewSet):
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
+    permission_classes = (permissions.IsAuthenticated, IsOwner,)
     lookup_url_kwarg = 'ad_id'
 
     def perform_create(self, serializer):

@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class User(AbstractUser):
     is_seller = models.BooleanField(default=False)
-    is_buyer = models.BooleanField(default=False)
+    is_buyer = models.BooleanField(default=True)
 
 class OTP(models.Model):
     receiver = models.OneToOneField(User, on_delete = models.CASCADE)
