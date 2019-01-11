@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class User(AbstractUser):
     is_seller = models.BooleanField(default=False)
-    is_buyer = models.BooleanField(default=True)
+    is_buyer = models.BooleanField(default=False)
 
 class OTP(models.Model):
     receiver = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -16,11 +16,12 @@ class OTP(models.Model):
     def __str__(self):
         return ("%s has received otps: %s" %(self.receiver.username,self.otp))
 
+
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     full_name = models.CharField(max_length=20, blank=False,null=False)
     pin_code = models.CharField(max_length=10, blank=False,null=False)
-    phone_number = PhoneNumberField(max_length=13,blank=False,null=False)
+    phone_number = PhoneNumberField(max_length=13,blank=False,null=False,required=True)
     residence = models.CharField(max_length=50,blank=False,null=False)
     locality = models.CharField(max_length=60,blank=False,null=False)
     landmark = models.CharField(max_length=50,blank=True,null=True,default='')

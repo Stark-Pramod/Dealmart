@@ -3,6 +3,7 @@ from .models import User
 from .models import *
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
+from rest_framework.validators import UniqueTogetherValidator
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -19,12 +20,13 @@ class UserSerializer(serializers.ModelSerializer):
                                                                  lookup='exact')])
     password = serializers.CharField(style={'input_type': 'password'},required=True,
                                      allow_blank=False,allow_null=False)
-    pass_cnf = serializers.CharField(style={'input_type':'password'},required=True)
+    pass_cnf = serializers.CharField(style={'input_type':'password'},required=True),
+    phone_number = serializers.CharField()
 
     class Meta:
         model = User
         write_only_fields = ('pass_cnf',)
-        fields = ('id','username', 'email','password','pass_cnf')
+        fields = ('id','username', 'email','password','pass_cnf','phone_number')
 
 
     def validate(self, data):
@@ -64,12 +66,12 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
-    def validate(self, validated_data):
-        phone_number = validated_data.get('phone_number')
-        if not phone_number:
-            raise ValidationError("Phone number is required!")
-        else:
-            return validated_data
+    # def validate(self, validated_data):
+        # phone_number = validated_data.get('phone_number')
+        # if not phone_number:
+        #     raise ValidationError("Phone number is required!")
+        # else:
+        #     return validated_data
 
 
 
