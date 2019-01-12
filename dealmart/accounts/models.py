@@ -1,12 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
+class Role(models.Model):
+    BUYER = 1
+    SELLER = 2
+    SELLER_BUYER = 3
+    ROLE_CHOICES = (
+        (BUYER, 'buyer'),
+        (SELLER, 'seller'),
+        (SELLER_BUYER,'seller_buyer')
+        )
+
+    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+
+    def __str__(self):
+         return self.get_id_display()
+
 class User(AbstractUser):
-    is_seller = models.BooleanField(default=False)
-    is_buyer = models.BooleanField(default=False)
+    roles = models.ManyToManyField(Role)
+
 
 class OTP(models.Model):
     receiver = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -18,10 +32,10 @@ class OTP(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=20, blank=False,null=False)
     pin_code = models.CharField(max_length=10, blank=False,null=False)
-    phone_number = PhoneNumberField(max_length=13,blank=False,null=False,required=True)
+    phone_number = PhoneNumberField(max_length=13,blank=False,null=False)
     residence = models.CharField(max_length=50,blank=False,null=False)
     locality = models.CharField(max_length=60,blank=False,null=False)
     landmark = models.CharField(max_length=50,blank=True,null=True,default='')

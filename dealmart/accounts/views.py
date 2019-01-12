@@ -2,7 +2,8 @@ from .serializers import *
 from .permissions import *
 from .backends import EmailOrUsername
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User=get_user_model()
 from rest_framework import status
 from rest_framework import generics,viewsets
 from rest_framework.views import APIView
@@ -15,16 +16,9 @@ from .models import OTP
 from django.contrib.auth import login,logout
 from django.utils import timezone
 from datetime import datetime, timedelta
-from django.contrib.auth import get_user_model
-User = get_user_model()
-from rest_framework.decorators import action
-from rest_framework import mixins
-
-
-
 
 # Create your views here.
-class BuyerSignUp(APIView):
+class SignUp(APIView):
     """
     List all snippets, or create a new snippet.
     """
@@ -42,7 +36,9 @@ class BuyerSignUp(APIView):
         data = OTP.objects.create(otp=otp,receiver=user)
         data.save()
         user.is_active = False
-        user.save(is_buyer=True)
+        buyer = Role.objects.get(id=1)
+        user.roles.add(buyer)
+        user.save()
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
             'user': user,

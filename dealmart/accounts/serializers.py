@@ -1,11 +1,10 @@
 from rest_framework import serializers
-from .models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from .models import *
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
 from rest_framework.validators import UniqueTogetherValidator
-from django.contrib.auth import get_user_model
-User = get_user_model()
 
 
 
@@ -20,19 +19,17 @@ class UserSerializer(serializers.ModelSerializer):
                                                                  lookup='exact')])
     password = serializers.CharField(style={'input_type': 'password'},required=True,
                                      allow_blank=False,allow_null=False)
-    pass_cnf = serializers.CharField(style={'input_type':'password'},required=True),
-    phone_number = serializers.CharField()
+    confirm_password = serializers.CharField(style={'input_type':'password'},required=True)
 
     class Meta:
         model = User
-        write_only_fields = ('pass_cnf',)
-        fields = ('id','username', 'email','password','pass_cnf','phone_number')
+        fields = ('id','username', 'email','password','confirm_password')
 
 
     def validate(self, data):
 
         password = data.get('password')
-        pass_cnf = data.get('pass_cnf')
+        pass_cnf = data.get('confirm_password')
 
         if password != pass_cnf:
                raise ValidationError("Password didn't matched ")
@@ -65,13 +62,6 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = '__all__'
         read_only_fields = ('user',)
-
-    # def validate(self, validated_data):
-        # phone_number = validated_data.get('phone_number')
-        # if not phone_number:
-        #     raise ValidationError("Phone number is required!")
-        # else:
-        #     return validated_data
 
 
 

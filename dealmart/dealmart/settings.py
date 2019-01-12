@@ -32,8 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'accounts.User'
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -79,9 +79,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dealmart.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
@@ -89,10 +86,6 @@ DATABASES = {
     },
 }
 
-
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -198,3 +191,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'feedlysi001'
 EMAIL_HOST_PASSWORD = 'pramod@12345'
 EMAIL_PORT = 587
+AUTH_USER_MODEL = "accounts.User"
