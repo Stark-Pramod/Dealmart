@@ -56,16 +56,20 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ('uname_or_em','password')
 
 
-class AddressSerializer(serializers.ModelSerializer):
+class DeliveryAddressSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Address
+        model = DeliveryAddress
         fields = '__all__'
         read_only_fields = ('user',)
 
 
+class PickupAddressSerializer(serializers.ModelSerializer):
 
-
+    class Meta:
+        model = PickupAddress
+        fields = '__all__'
+        read_only_fields = ('user',)
 
 
 

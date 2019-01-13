@@ -11,6 +11,8 @@ class IsOwner(permissions.BasePermission):
 
         # Write permissions are only allowed to the owner of the address.
         return obj.user.username == request.user.username
+
+
 class IsBuyer(permissions.BasePermission):
 
     def has_permission(self, request, view):
@@ -18,6 +20,17 @@ class IsBuyer(permissions.BasePermission):
         roles = user.roles.all()
         for role in roles:
             if role.id == 1:
+                return True
+            else:
+                return False
+
+class IsSeller(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        user =request.user
+        roles = user.roles.all()
+        for role in roles:
+            if role.id == 2:
                 return True
             else:
                 return False

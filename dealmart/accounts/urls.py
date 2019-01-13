@@ -6,6 +6,7 @@ from rest_framework.documentation import include_docs_urls
 
 router = DefaultRouter()
 router.register(r'daddress', views.DeliveryAddressView)
+router.register(r'paddress',views.PickupAddressView)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

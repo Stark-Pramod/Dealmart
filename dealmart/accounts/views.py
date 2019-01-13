@@ -161,8 +161,8 @@ class Logout(APIView):
 
 
 class DeliveryAddressView(viewsets.ModelViewSet):
-    serializer_class = AddressSerializer
-    queryset = Address.objects.all()
+    serializer_class = DeliveryAddressSerializer
+    queryset = DeliveryAddress.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwner, IsBuyer)
     lookup_url_kwarg = 'ad_id'
 
@@ -170,13 +170,25 @@ class DeliveryAddressView(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     def list(self, request, *args, **kwargs):
-        add = Address.objects.filter(user=request.user)
-        serializer = AddressSerializer(data=add,many=True)
+        add = DeliveryAddress.objects.filter(user=request.user)
+        serializer = DeliveryAddressSerializer(data=add,many=True)
         serializer.is_valid()
         return Response(serializer.data)
 
 
+class PickupAddressView(viewsets.ModelViewSet):
+    serializer_class = PickupAddressSerializer
+    queryset = PickupAddress.objects.all()
+    permission_classes = (permissions.IsAuthenticated, IsOwner, IsSeller)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        add = PickupAddress.objects.filter(user=request.user)
+        serializer = PickupAddressSerializer(data=add,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
 
 
 

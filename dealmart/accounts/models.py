@@ -29,7 +29,7 @@ class OTP(models.Model):
         return ("%s has received otps: %s" %(self.receiver.username,self.otp))
 
 
-class Address(models.Model):
+class DeliveryAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=20, blank=False,null=False)
     pin_code = models.CharField(max_length=10, blank=False,null=False)
@@ -42,3 +42,15 @@ class Address(models.Model):
     def __str__(self):
         return ("% has dilivery address %s"%(self.user.username,self.city))
 
+
+class PickupAddress(models.Model):
+     user = models.ForeignKey(User,on_delete=models.CASCADE)
+     full_name = models.CharField(max_length=20, blank=False,null=False)
+     Company_name = models.CharField(max_length=50, blank=False,null=False)
+     pin_code = models.CharField(max_length=10, blank=False,null=False)
+     phone_number = PhoneNumberField(max_length=13,blank=False,null=False)
+     full_address = models.CharField(max_length=100,blank=False,null=False)
+     city = models.CharField(max_length=20,blank=False,null=False)
+
+     def __str__(self):
+         return ("% has pickup address %s"%(self.Company_name,self.city))
