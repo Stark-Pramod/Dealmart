@@ -32,12 +32,23 @@ class OTP(models.Model):
 class DeliveryAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=20, blank=False,null=False)
-    pin_code = models.CharField(max_length=10, blank=False,null=False)
+    pin_code = models.CharField(max_length=6, blank=False,null=False)
     phone_number = PhoneNumberField(max_length=13,blank=False,null=False)
     residence = models.CharField(max_length=50,blank=False,null=False)
     locality = models.CharField(max_length=60,blank=False,null=False)
     landmark = models.CharField(max_length=50,blank=True,null=True,default='')
+    district  = models.CharField(max_length=50,blank=False,null=False)
     city = models.CharField(max_length=20,blank=False,null=False)
+    STATE_CHOICES =(
+        ('Uttar Pradesh','Uttar Pradesh'),
+        ('Delhi','Delhi'),
+        ('Punjab','Punjab')
+    )
+    state = models.CharField(max_length=30,choices=STATE_CHOICES,default='',null=False,blank=False)
+    COUNTRY_CHOICES = (
+        ('India','India'),
+    )
+    country = models.CharField(max_length=15, choices=COUNTRY_CHOICES, default='India')
 
     def __str__(self):
         return ("% has dilivery address %s"%(self.user.username,self.city))
@@ -45,12 +56,32 @@ class DeliveryAddress(models.Model):
 
 class PickupAddress(models.Model):
      user = models.ForeignKey(User,on_delete=models.CASCADE)
-     full_name = models.CharField(max_length=20, blank=False,null=False)
      Company_name = models.CharField(max_length=50, blank=False,null=False)
-     pin_code = models.CharField(max_length=10, blank=False,null=False)
+     pin_code = models.CharField(max_length=6, blank=False,null=False)
      phone_number = PhoneNumberField(max_length=13,blank=False,null=False)
      full_address = models.CharField(max_length=100,blank=False,null=False)
      city = models.CharField(max_length=20,blank=False,null=False)
+     STATE_CHOICES =(
+         ('Uttar Pradesh','Uttar Pradesh'),
+         ('Delhi','Delhi'),
+         ('Punjab','Punjab')
+     )
+     state = models.CharField(max_length=30,choices=STATE_CHOICES,default='',null=False,blank=False)
+     COUNTRY_CHOICES = (
+        ('India','India'),
+      )
+     country = models.CharField(max_length=15, choices=COUNTRY_CHOICES, default='India')
 
      def __str__(self):
          return ("% has pickup address %s"%(self.Company_name,self.city))
+
+class SellerDetails(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=20, blank=False,null=False)
+    Bank_account_no = models.IntegerField(blank=False,null=False)
+    IFSC_code = models.CharField(max_length=11,blank=False,null=False)
+    aadhar_no = models.IntegerField(blank=False,null=True)
+    pan_card_no = models.CharField(max_length=10,blank=True,null=False)
+
+    def __str__(self):
+        return (self.user.username)

@@ -37,7 +37,7 @@ class SignUp(APIView):
         data.save()
         user.is_active = False
         user.save()
-        buyer = Role.objects.get(id=2)
+        buyer = Role.objects.get(id=1)
         user.roles.add(buyer)
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
@@ -190,6 +190,15 @@ class PickupAddressView(viewsets.ModelViewSet):
         serializer.is_valid()
         return Response(serializer.data)
 
+class SellerDetailsView(viewsets.ModelViewSet):
+    serializer_class = SellerDetailsSerializer
+    queryset = SellerDetails.objects.all()
+    permission_classes = (permissions.IsAuthenticated,IsSeller,IsOwner)
+
+    def perform_create(self, serializer):
+        if SellerDetails.objects.filter(user=self.request.user):
+            raise ValidationError('you are not allowed')
+        serializer.save(user=self.request.user)
 
 
 

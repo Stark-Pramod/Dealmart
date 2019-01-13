@@ -71,5 +71,10 @@ class PickupAddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
+class SellerDetailsSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = SellerDetails
+        fields = '__all__'
+        read_only_fields= ('user',)
 
