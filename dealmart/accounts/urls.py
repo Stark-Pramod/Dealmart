@@ -5,7 +5,7 @@ from django.urls import include
 from rest_framework.documentation import include_docs_urls
 
 router = DefaultRouter()
-router.register(r'address', views.AddressView)
+router.register(r'daddress', views.DeliveryAddressView)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

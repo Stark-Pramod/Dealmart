@@ -6,11 +6,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Role(models.Model):
     BUYER = 1
     SELLER = 2
-    SELLER_BUYER = 3
     ROLE_CHOICES = (
         (BUYER, 'buyer'),
         (SELLER, 'seller'),
-        (SELLER_BUYER,'seller_buyer')
         )
 
     id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)

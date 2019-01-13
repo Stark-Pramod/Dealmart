@@ -36,9 +36,9 @@ class SignUp(APIView):
         data = OTP.objects.create(otp=otp,receiver=user)
         data.save()
         user.is_active = False
-        buyer = Role.objects.get(id=1)
-        user.roles.add(buyer)
         user.save()
+        buyer = Role.objects.get(id=2)
+        user.roles.add(buyer)
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
             'user': user,
@@ -160,10 +160,10 @@ class Logout(APIView):
                         status=status.HTTP_200_OK)
 
 
-class AddressView(viewsets.ModelViewSet):
+class DeliveryAddressView(viewsets.ModelViewSet):
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
-    permission_classes = (permissions.IsAuthenticated, IsOwner,)
+    permission_classes = (permissions.IsAuthenticated, IsOwner, IsBuyer)
     lookup_url_kwarg = 'ad_id'
 
     def perform_create(self, serializer):
@@ -175,12 +175,8 @@ class AddressView(viewsets.ModelViewSet):
         serializer.is_valid()
         return Response(serializer.data)
 
-    # @action(methods=['GET'], detail=False)
-    # def me(self, request, *args,**kwargs):
-    #     add = Address.objects.all()
-    #     serializer = AddressSerializer(data=add,many=True)
-    #     serializer.is_valid()
-    #     return Response(serializer.data)
+
+
 
 
 
