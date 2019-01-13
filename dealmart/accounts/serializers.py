@@ -9,6 +9,9 @@ from rest_framework.validators import UniqueTogetherValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    serializer for creating user object
+    """
     email = serializers.EmailField(required=True,allow_blank=False,allow_null=False,
                                    validators=[UniqueValidator(queryset=User.objects.all(),
                                                                message="email already exists!",
@@ -25,9 +28,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id','username', 'email','password','confirm_password')
 
-
     def validate(self, data):
 
+        """
+        function for password validation
+        :param data:
+        :return:
+        """
         password = data.get('password')
         pass_cnf = data.get('confirm_password')
 
@@ -40,12 +47,18 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class OTPSerializer(serializers.ModelSerializer):
+    """
+    serializer for otp
+    """
 
     class Meta:
         model = OTP
         fields = ['otp']
 
 class LoginSerializer(serializers.ModelSerializer):
+    """
+    login serializer
+    """
 
     uname_or_em = serializers.CharField(allow_null=False,required=True)
     password = serializers.CharField(style={'input_type': 'password'},required=True,
@@ -56,7 +69,16 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ('uname_or_em','password')
 
 
+class RoleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Role
+        fields= '__all__'
+
 class DeliveryAddressSerializer(serializers.ModelSerializer):
+    """
+    serializer for delivery address
+    """
 
     class Meta:
         model = DeliveryAddress
@@ -65,7 +87,9 @@ class DeliveryAddressSerializer(serializers.ModelSerializer):
 
 
 class PickupAddressSerializer(serializers.ModelSerializer):
-
+    """
+    serializer for pickup address
+     """
     class Meta:
         model = PickupAddress
         fields = '__all__'
@@ -73,8 +97,13 @@ class PickupAddressSerializer(serializers.ModelSerializer):
 
 class SellerDetailsSerializer(serializers.ModelSerializer):
 
+    """
+    serializer for seller detail
+    """
+
     class Meta:
         model = SellerDetails
         fields = '__all__'
         read_only_fields= ('user',)
+
 

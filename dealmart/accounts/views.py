@@ -160,6 +160,12 @@ class Logout(APIView):
                         status=status.HTTP_200_OK)
 
 
+class RoleView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,IsAdmin)
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+
+
 class DeliveryAddressView(viewsets.ModelViewSet):
     serializer_class = DeliveryAddressSerializer
     queryset = DeliveryAddress.objects.all()
@@ -189,6 +195,7 @@ class PickupAddressView(viewsets.ModelViewSet):
         serializer = PickupAddressSerializer(data=add,many=True)
         serializer.is_valid()
         return Response(serializer.data)
+
 
 class SellerDetailsView(viewsets.ModelViewSet):
     serializer_class = SellerDetailsSerializer

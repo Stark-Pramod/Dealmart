@@ -34,3 +34,11 @@ class IsSeller(permissions.BasePermission):
                 return True
             else:
                 return False
+
+class IsAdmin(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        user=request.user
+        if user.is_staff==True:
+            return True
+        return False
