@@ -20,7 +20,7 @@ from datetime import datetime, timedelta
 # Create your views here.
 class SignUp(APIView):
     """
-    List all snippets, or create a new snippet.
+    List all user, or create a new user.
     """
     serializer_class = UserSerializer
     permission_classes = (permissions.AllowAny,)
@@ -52,8 +52,10 @@ class SignUp(APIView):
                                  status=status.HTTP_201_CREATED)
 
 
-
 class Activate(APIView):
+    """
+    Activate verifies the stored otp and the otp entered by user.
+    """
     permission_classes = (permissions.AllowAny,)
     serializer_class = OTPSerializer
 
@@ -89,8 +91,10 @@ class Activate(APIView):
             return Response({'error':'Invalid OTP',},status = status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
 
-
 class ResendOtp(generics.CreateAPIView):
+    """
+    views for resend the otp.
+    """
     serializer_class = OTPSerializer
     permission_classes = (permissions.AllowAny,)
 
@@ -161,12 +165,18 @@ class Logout(APIView):
 
 
 class RoleView(viewsets.ModelViewSet):
+    """
+    view to create the different Role.
+    """
     permission_classes = (permissions.IsAuthenticated,IsAdmin)
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
 
 
 class DeliveryAddressView(viewsets.ModelViewSet):
+    """
+    DeliveryAddress view for storing delivery address of buyer.
+    """
     serializer_class = DeliveryAddressSerializer
     queryset = DeliveryAddress.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwner, IsBuyer)
@@ -183,6 +193,9 @@ class DeliveryAddressView(viewsets.ModelViewSet):
 
 
 class PickupAddressView(viewsets.ModelViewSet):
+    """
+    PickupAddress view for storing pickup address of seller.
+    """
     serializer_class = PickupAddressSerializer
     queryset = PickupAddress.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwner, IsSeller)
@@ -198,6 +211,9 @@ class PickupAddressView(viewsets.ModelViewSet):
 
 
 class SellerDetailsView(viewsets.ModelViewSet):
+    """
+      seller detail view for storing bank details and tax related info of seller.
+    """
     serializer_class = SellerDetailsSerializer
     queryset = SellerDetails.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsSeller,IsOwner)

@@ -1,7 +1,15 @@
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+
 def EmailOrUsername(self,uname_or_em,password):
+    """
+    function to login the user either by email or username.
+    :param self:
+    :param uname_or_em:
+    :param password:
+    :return:
+    """
     for user in User.objects.all():
         print(user)
         if user.email == uname_or_em and user.is_active == True:

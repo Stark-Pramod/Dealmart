@@ -14,7 +14,9 @@ class IsOwner(permissions.BasePermission):
 
 
 class IsBuyer(permissions.BasePermission):
-
+    """
+  Custom permission to only allow buyers to have access.
+  """
     def has_permission(self, request, view):
         user =request.user
         roles = user.roles.all()
@@ -24,7 +26,11 @@ class IsBuyer(permissions.BasePermission):
             else:
                 return False
 
+
 class IsSeller(permissions.BasePermission):
+    """
+ Custom permission to only allow sellers to have access.
+ """
 
     def has_permission(self, request, view):
         user =request.user
@@ -35,10 +41,15 @@ class IsSeller(permissions.BasePermission):
             else:
                 return False
 
-class IsAdmin(permissions.BasePermission):
 
-    def has_object_permission(self, request, view, obj):
-        user=request.user
-        if user.is_staff==True:
+class IsAdmin(permissions.BasePermission):
+    """
+ Custom permission to only allow admin to create Role
+ """
+
+    def has_permission(self, request, view,):
+        user = request.user
+        if user.is_staff== True:
             return True
         return False
+
