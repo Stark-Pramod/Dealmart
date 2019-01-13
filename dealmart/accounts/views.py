@@ -197,7 +197,7 @@ class SellerDetailsView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         if SellerDetails.objects.filter(user=self.request.user):
-            raise ValidationError('you are not allowed')
+            raise ValidationError("you are not allowed to add more than one detail set")
         serializer.save(user=self.request.user)
 
 
