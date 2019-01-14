@@ -216,25 +216,13 @@ class PickupAddressView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class SellerDetailsView(generics.GenericAPIView,
-                        mixins.CreateModelMixin,
-                        mixins.RetrieveModelMixin,
-                        mixins.UpdateModelMixin,
-                        mixins.DestroyModelMixin):
+class SellerDetailsView(viewsets.ModelViewSet):
     """
       seller detail view for storing bank details and tax related info of seller.
     """
     serializer_class = SellerDetailsSerializer
-    # queryset = SellerDetails.objects.all()
+    queryset = SellerDetails.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsOwner)
-
-    def get(self,request,*args,**kwargs):
-        serializer = SellerDetailsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'detail':'created'})
-        else:
-            return Response({'error':'Error'})
 
     def perform_create(self, serializer):
         if SellerDetails.objects.filter(user=self.request.user):
@@ -244,7 +232,11 @@ class SellerDetailsView(generics.GenericAPIView,
         user.roles.add(seller)
         serializer.save(user=self.request.user)
 
-
+    def list(self, request, *args, **kwargs):
+        add = SellerDetails.objects.filter(user=request.user)
+        serializer = SellerDetailsSerializer(data=add,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
 
 
 
