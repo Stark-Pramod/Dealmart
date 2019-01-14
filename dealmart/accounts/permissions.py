@@ -1,6 +1,16 @@
 from rest_framework import permissions
 from .models import *
 
+
+class IsNotActive(permissions.BasePermission):
+    """
+    checking if user is already active or not.
+    """
+    def has_permission(self, request, view):
+        if request.user.is_active == True:
+             return False
+        return True
+
 class IsOwner(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.

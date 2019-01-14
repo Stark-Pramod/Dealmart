@@ -56,9 +56,15 @@ class Activate(APIView):
     """
     Activate verifies the stored otp and the otp entered by user.
     """
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,IsNotActive)
     serializer_class = OTPSerializer
 
+    def get(self,request,user_id,*args,**kwargs):
+        user =User.objects.filter(id=user_id)
+        if user:
+            return Response({'status':'Not Allowed'})
+        else:
+            return Response({'status':'allowed'})
 
     def post(self,request,user_id,*args,**kwargs):
         code = OTPSerializer(data=request.data)
@@ -96,7 +102,7 @@ class ResendOtp(generics.CreateAPIView):
     views for resend the otp.
     """
     serializer_class = OTPSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,IsNotActive)
 
     def get(self,request,user_id,*args,**kwargs):
         try:
