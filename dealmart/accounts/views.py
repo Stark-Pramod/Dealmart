@@ -222,11 +222,14 @@ class SellerDetailsView(viewsets.ModelViewSet):
     """
     serializer_class = SellerDetailsSerializer
     queryset = SellerDetails.objects.all()
-    permission_classes = (permissions.IsAuthenticated,IsSeller,IsOwner)
+    permission_classes = (permissions.IsAuthenticated,IsOwner)
 
     def perform_create(self, serializer):
         if SellerDetails.objects.filter(user=self.request.user):
             raise ValidationError("you are not allowed to add more than one detail set")
+        user = self.request.user
+        seller = Role.objects.get(id=2)
+        user.roles.add(seller)
         serializer.save(user=self.request.user)
 
 

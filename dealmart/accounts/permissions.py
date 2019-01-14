@@ -44,12 +44,11 @@ class IsSeller(permissions.BasePermission):
 
     def has_permission(self, request, view):
         user =request.user
-        roles = user.roles.all()
-        for role in roles:
-            if role.id == 2:
-                return True
-            else:
-                return False
+        role = user.roles.filter(id=2)
+        if role:
+            return True
+        else:
+            return False
 
 
 class IsAdmin(permissions.BasePermission):
