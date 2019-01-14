@@ -100,9 +100,9 @@ class SellerDetails(models.Model):
     """
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     full_name = models.CharField(max_length=20, blank=False,null=False)
-    bank_account_no = models.IntegerField(blank=False,null=False)
+    bank_account_no = models.PositiveIntegerField(blank=False,null=False)
     IFSC_code = models.CharField(max_length=11,blank=False,null=False)
-    aadhar_no = models.IntegerField(blank=False,null=True)
+    aadhar_no = models.PositiveIntegerField(blank=False,null=True)
     pan_card_no = models.CharField(max_length=10,blank=True,null=False)
 
     def __str__(self):

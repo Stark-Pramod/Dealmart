@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 User=get_user_model()
 from rest_framework import status
-from rest_framework import generics,viewsets
+from rest_framework import generics,viewsets,mixins
 from rest_framework.views import APIView
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -216,13 +216,25 @@ class PickupAddressView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class SellerDetailsView(viewsets.ModelViewSet):
+class SellerDetailsView(generics.GenericAPIView,
+                        mixins.CreateModelMixin,
+                        mixins.RetrieveModelMixin,
+                        mixins.UpdateModelMixin,
+                        mixins.DestroyModelMixin):
     """
       seller detail view for storing bank details and tax related info of seller.
     """
     serializer_class = SellerDetailsSerializer
-    queryset = SellerDetails.objects.all()
+    # queryset = SellerDetails.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsOwner)
+
+    def get(self,request,*args,**kwargs):
+        serializer = SellerDetailsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'detail':'created'})
+        else:
+            return Response({'error':'Error'})
 
     def perform_create(self, serializer):
         if SellerDetails.objects.filter(user=self.request.user):
@@ -231,9 +243,6 @@ class SellerDetailsView(viewsets.ModelViewSet):
         seller = Role.objects.get(id=2)
         user.roles.add(seller)
         serializer.save(user=self.request.user)
-
-
-
 
 
 
