@@ -137,9 +137,18 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
         else:
             return data
 
+class SubcategorySerializer(serializers.Serializer):
+
+    class Meta:
+        model = Subcategory
+
+
+
 
 class ProductSerializer(serializers.ModelSerializer):
+    subcategory = SubcategorySerializer(many=False)
 
     class Meta:
          model = Product
          fields = '__all__'
+         depth = 2
