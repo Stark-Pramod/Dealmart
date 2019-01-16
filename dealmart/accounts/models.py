@@ -1,7 +1,7 @@
-from django.db import models
+# from django.db import models
+from djongo import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-
 # Create your models here.
 
 
@@ -107,3 +107,20 @@ class SellerDetails(models.Model):
 
     def __str__(self):
         return (self.user.username)
+
+class Subcategory(models.Model):
+    """
+    Model to use as abstract class for categories of product.
+    """
+    name = models.CharField(max_length=12)
+    size = models.IntegerField()
+
+    class Meta:
+        abstract = True
+
+class Product(models.Model):
+    subcategory = models.EmbeddedModelField(model_container=Subcategory,)
+    specification = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.subcategory.name
