@@ -239,8 +239,4 @@ class SellerDetailsView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class ProductView(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    permission_classes = (permissions.IsAuthenticated,)
 

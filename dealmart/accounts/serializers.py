@@ -106,49 +106,36 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields= ('user',)
 
-    def validate(self, data):
-        """
-       -----validating bank account number--------
-       """
-        acc_no = data.get('bank_account_no')
-        if len(str(acc_no)) <9 or len(str(acc_no))>18:
-             raise ValidationError("Invalid Account number.Account number must be of 9 to 18 digits")
-
-        #-----------validating IFSC Code-----------
-        ifsc = data.get('IFSC_code')
-        if len(ifsc) != 11:
-            raise ValidationError("IFSC code should be of 11 character.")
-        if not ifsc.isalnum():
-            raise ValidationError("IFSC code is Invalid.")
-
-        #-----------validating Aadhar Number -------
-        aadhar = data.get('aadhar_no')
-        if len(str(aadhar))!= 12:
-            raise ValidationError("Aadhar number should be of 12 digits.")
-
-        #-----------Validating PAN number----------
-        pan = data.get('pan_card_no')
-        if len(pan) != 10:
-            raise ValidationError("PAN number should be 10 character long.")
-        if not pan.isalnum():
-            raise ValidationError("PAN Number is Invalid.")
-
-
-        else:
-            return data
-
-class SubcategorySerializer(serializers.Serializer):
-
-    class Meta:
-        model = Subcategory
+    # def validate(self, data):
+    #     """
+    #    -----validating bank account number--------
+    #    """
+    #     acc_no = data.get('bank_account_no')
+    #     if len(str(acc_no)) <9 or len(str(acc_no))>18:
+    #          raise ValidationError("Invalid Account number.Account number must be of 9 to 18 digits")
+    #
+    #     #-----------validating IFSC Code-----------
+    #     ifsc = data.get('IFSC_code')
+    #     if len(ifsc) != 11:
+    #         raise ValidationError("IFSC code should be of 11 character.")
+    #     if not ifsc.isalnum():
+    #         raise ValidationError("IFSC code is Invalid.")
+    #
+    #     #-----------validating Aadhar Number -------
+    #     aadhar = data.get('aadhar_no')
+    #     if len(str(aadhar))!= 12:
+    #         raise ValidationError("Aadhar number should be of 12 digits.")
+    #
+    #     #-----------Validating PAN number----------
+    #     pan = data.get('pan_card_no')
+    #     if len(pan) != 10:
+    #         raise ValidationError("PAN number should be 10 character long.")
+    #     if not pan.isalnum():
+    #         raise ValidationError("PAN Number is Invalid.")
+    #
+    #
+    #     else:
+    #         return data
 
 
 
-
-class ProductSerializer(serializers.ModelSerializer):
-    subcategory = SubcategorySerializer(many=False)
-
-    class Meta:
-         model = Product
-         fields = '__all__'
-         depth = 2
