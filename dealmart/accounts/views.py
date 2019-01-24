@@ -239,4 +239,7 @@ class SellerDetailsView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+class ProductView(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
 

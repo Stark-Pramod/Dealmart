@@ -109,6 +109,18 @@ class SellerDetails(models.Model):
         return (self.user.username)
 
 
+class Product(models.Model):
+    name = models.ListField()
+    type = models.CharField(max_length=10,blank=True,null=True)
+    CAT_CH=(
+        ('electronics','Electronics'),
+        ('decorations','Decorations'),
+        ('men wears','Men Wears'),
+        ('women wears','Women Wears'),
+        ('mobiles','Mobiles'),
+        ('laptops','Laptops'),
+    )
+    category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
 
-
-
+    def __str__(self):
+        return "%s"%(self.name)
