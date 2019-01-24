@@ -110,7 +110,8 @@ class SellerDetails(models.Model):
 
 
 class Product(models.Model):
-    name = models.ListField()
+    seller = models.ForeignKey(User,on_delete=models.CASCADE)
+    name = models.CharField(max_length=15,null=False,blank=False)
     type = models.CharField(max_length=10,blank=True,null=True)
     CAT_CH=(
         ('electronics','Electronics'),
@@ -123,4 +124,4 @@ class Product(models.Model):
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
 
     def __str__(self):
-        return "%s"%(self.name)
+        return "%s is of %s"%(self.name,self.seller.username)
