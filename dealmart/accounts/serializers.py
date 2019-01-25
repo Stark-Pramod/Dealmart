@@ -139,8 +139,22 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    # video = serializers.FileField(required=False,Validators=[File_size])
 
     class Meta:
         model = Product
         fields = '__all__'
         read_only_fields = ('user',)
+
+    def validate(self, data):
+        video = data.get('video')
+        print(video)
+        image = data.get('image')
+        limit_v = 50 * 1024 * 1024
+        limit_i = 3 * 1024 *1024
+        if video and video.size > limit_v:
+            raise ValidationError('Video too large. Size should not exceed 10 MiB.')
+        elif image and image.size > limit_i:
+            raise ValidationError('Image too large.Size should not exceed 50 MB')
+        else:
+            return data

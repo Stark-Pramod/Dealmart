@@ -112,7 +112,7 @@ class SellerDetails(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=15,null=False,blank=False)
-    image = models.ImageField(default='download.png',null=False,blank=False,upload_to='product_pics')
+    image = models.ImageField(default='product_pics/download.png',null=False,blank=False,upload_to='product_pics')
     video = models.FileField(upload_to ='product_videos', null=True, blank=True)
     CAT_CH=(
         ('electronics','Electronics'),
