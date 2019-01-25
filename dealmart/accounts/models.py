@@ -110,18 +110,24 @@ class SellerDetails(models.Model):
 
 
 class Product(models.Model):
-    seller = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=15,null=False,blank=False)
-    type = models.CharField(max_length=10,blank=True,null=True)
+    image = models.ImageField(default='download.png',null=False,blank=False,upload_to='product_pics')
+    video = models.FileField(upload_to ='product_videos', null=True, blank=True)
     CAT_CH=(
         ('electronics','Electronics'),
         ('decorations','Decorations'),
         ('men wears','Men Wears'),
         ('women wears','Women Wears'),
-        ('mobiles','Mobiles'),
-        ('laptops','Laptops'),
+        ('kids','kids'),
+        ('groceries','Groceries'),
+        ('cosmetics','Cosmetics'),
+        ('books','Books'),
+        ('furnitures','Furnitures')
     )
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
 
     def __str__(self):
-        return "%s is of %s"%(self.name,self.seller.username)
+        return "%s is of %s"%(self.name,self.user.username)
+
+# class Electronics()

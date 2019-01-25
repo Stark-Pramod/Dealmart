@@ -1,7 +1,10 @@
 from django.conf.urls import url
 from . import views
+from django.conf import settings
 from rest_framework.routers import DefaultRouter
 from django.urls import include
+from django.conf.urls.static import static
+
 from rest_framework.documentation import include_docs_urls
 
 router = DefaultRouter()
@@ -19,4 +22,4 @@ urlpatterns = [
     url(r'^api/login/$',views.Login.as_view(), name='login'),
     url(r'^api/logout/$',views.Logout.as_view(), name='logout'),
     url(r'^api/docs/', include_docs_urls(title='My API title'))
-    ]
+    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
