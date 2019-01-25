@@ -56,7 +56,7 @@ class Activate(APIView):
     """
     Activate verifies the stored otp and the otp entered by user.
     """
-    permission_classes = (permissions.AllowAny,IsNotActive)
+    permission_classes = (IsUser,IsNotActive)
     serializer_class = OTPSerializer
 
     def get(self,request,user_id,*args,**kwargs):
