@@ -108,29 +108,65 @@ class SellerDetails(models.Model):
     def __str__(self):
         return (self.user.username)
 
-#
-# class Electronics():
-#     product = models.OneToOneField(Product,on_delete=models.CASCADE)
-#     ELEC_CH =(
-#         ('mobile','Mobile'),
-#         ('Laptop','Laptop'),
-#         ('earphone','Earphone'),
-#         ('speaker','Speaker'),
-#         ('air_conditioner','Air Conditioner'),
-#         ('washing_machine','Washing Machine'),
-#         ('water_pump','Water Pump'),
-#         ('hair_drier','Hair Drier'),
-#         ('projector','Projector'),
-#         ('desktop','Desktop'),
-#         ('cpu','CPU'),
-#         ('mouse','Mouse'),
-#         ('keyboard','Keyboard'),
-#         ('other','Other')
-#     )
-#     subcategory = models.CharField(choices=ELEC_CH,null=True,blank=True,max_length=30)
-#
-#     class Meta:
-#         abstract = True
+class Subcategory(models.Model):
+    # product = models.OneToOneField(Product,on_delete=models.CASCADE)
+    ELEC_CH =(
+        ('mobile','Mobile'),
+        ('Laptop','Laptop'),
+        ('earphone','Earphone'),
+        ('speaker','Speaker'),
+        ('air_conditioner','Air Conditioner'),
+        ('washing_machine','Washing Machine'),
+        ('water_pump','Water Pump'),
+        ('hair_drier','Hair Drier'),
+        ('projector','Projector'),
+        ('desktop','Desktop'),
+        ('cpu','CPU'),
+        ('mouse','Mouse'),
+        ('keyboard','Keyboard'),
+        ('other','Other')
+    )
+    DEC_CH= (
+        ('vase','Vase'),
+        ('painting','Painting'),
+        ('statue','Statue'),
+        ('curtain','Curtain'),
+        ('bedsheet','Bedsheet'),
+    )
+    MEN_WEAR_CH =(
+        ('shirt','Shirt'),
+        ('t-shirt','T-shirt'),
+        ('jeans','Jeans'),
+        ('pant','Pant'),
+        ('trouser','Trouser'),
+        ('jacket','Jacket'),
+        ('suit','Suit')
+    )
+    WOMEN_WEAR_CH = (
+        ('top','Top'),
+        ('jeans','Jeans'),
+        ('saari','Saari'),
+        ('lehnga','Lehnga'),
+        ('t-shirt','T-shirt'),
+        ('suit','Suit'),
+        ('salwar','Salwar'),
+    )
+    KIDS_CH = (
+        ('cap','Cap'),
+        ('shirt','Shirt'),
+        ('inner_wear','Inner Wear'),
+        ('diaper','Diaper'),
+        ('t-shirt','T-shirt'),
+        ('half-pant','Half Pant'),
+        ('full-pant','Full Pant'),
+        ('bottle','Bottle')
+    )
+
+    electronics = models.CharField(choices=ELEC_CH,null=True,blank=True,max_length=30)
+    decorations = models.CharField(choices=DEC_CH,null=True,blank=True,max_length=30)
+    men_wears = models.CharField(choices=MEN_WEAR_CH,null=True,blank=True,max_length=30)
+    women_wears = models.CharField(choices=WOMEN_WEAR_CH,null=True,blank=True,max_length=30)
+    kids = models.CharField(choices=KIDS_CH,null=True,blank=True,max_length=30)
 
 
 class Product(models.Model):
@@ -149,25 +185,10 @@ class Product(models.Model):
         ('books','Books'),
         ('furnitures','Furnitures')
     )
-    # electornics = (
-    #             ('mobile','Mobile'),
-    #             ('Laptop','Laptop'),
-    #             ('earphone','Earphone'),
-    #             ('speaker','Speaker'),
-    #             ('air_conditioner','Air Conditioner'),
-    #             ('washing_machine','Washing Machine'),
-    #             ('water_pump','Water Pump'),
-    #             ('hair_drier','Hair Drier'),
-    #             ('projector','Projector'),
-    #             ('desktop','Desktop'),
-    #             ('cpu','CPU'),
-    #             ('mouse','Mouse'),
-    #             ('keyboard','Keyboard'),
-    #             ('other','Other')
-    # )
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
-    # subcategory= models.CharField(choices=)
+    subcategory = models.CharField(null=False,blank=False,max_length=30,default='------')
 
     def __str__(self):
         return "%s is of %s"%(self.name,self.user.username)
+
 

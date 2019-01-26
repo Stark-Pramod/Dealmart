@@ -137,14 +137,29 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
     #     else:
     #         return data
 
+class SubcategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Subcategory
+        fields = '__all__'
+        read_only_fields=('product',)
+
 
 class ProductSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(label="Brand/Model")
-
+    name = serializers.CharField(label='Brand/Label')
+    subcategory = SubcategorySerializer()
     class Meta:
         model = Product
         fields = '__all__'
         read_only_fields = ('user',)
+
+
+
+    def create(self, validated_data):
+        subcategory_data = validated_data.pop('subcategory')
+        product = Product.objects.create(**validated_data)
+        subcategory =Subcategory.objects.create(**subcategory_data)
+        return product
 
     def validate(self, data):
         video = data.get('video')
