@@ -108,6 +108,30 @@ class SellerDetails(models.Model):
     def __str__(self):
         return (self.user.username)
 
+#
+# class Electronics():
+#     product = models.OneToOneField(Product,on_delete=models.CASCADE)
+#     ELEC_CH =(
+#         ('mobile','Mobile'),
+#         ('Laptop','Laptop'),
+#         ('earphone','Earphone'),
+#         ('speaker','Speaker'),
+#         ('air_conditioner','Air Conditioner'),
+#         ('washing_machine','Washing Machine'),
+#         ('water_pump','Water Pump'),
+#         ('hair_drier','Hair Drier'),
+#         ('projector','Projector'),
+#         ('desktop','Desktop'),
+#         ('cpu','CPU'),
+#         ('mouse','Mouse'),
+#         ('keyboard','Keyboard'),
+#         ('other','Other')
+#     )
+#     subcategory = models.CharField(choices=ELEC_CH,null=True,blank=True,max_length=30)
+#
+#     class Meta:
+#         abstract = True
+
 
 class Product(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -119,15 +143,31 @@ class Product(models.Model):
         ('decorations','Decorations'),
         ('men wears','Men Wears'),
         ('women wears','Women Wears'),
-        ('kids','kids'),
+        ('kids','Kids'),
         ('groceries','Groceries'),
         ('cosmetics','Cosmetics'),
         ('books','Books'),
         ('furnitures','Furnitures')
     )
+    # electornics = (
+    #             ('mobile','Mobile'),
+    #             ('Laptop','Laptop'),
+    #             ('earphone','Earphone'),
+    #             ('speaker','Speaker'),
+    #             ('air_conditioner','Air Conditioner'),
+    #             ('washing_machine','Washing Machine'),
+    #             ('water_pump','Water Pump'),
+    #             ('hair_drier','Hair Drier'),
+    #             ('projector','Projector'),
+    #             ('desktop','Desktop'),
+    #             ('cpu','CPU'),
+    #             ('mouse','Mouse'),
+    #             ('keyboard','Keyboard'),
+    #             ('other','Other')
+    # )
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
+    # subcategory= models.CharField(choices=)
 
     def __str__(self):
         return "%s is of %s"%(self.name,self.user.username)
 
-# class Electronics()
