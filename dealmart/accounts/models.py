@@ -9,17 +9,19 @@ class Role(models.Model):
     """
     this is defined to allot a role to a user.
     """
-    BUYER = 1
-    SELLER = 2
-    ROLE_CHOICES = (
-        (BUYER, 'buyer'),
-        (SELLER, 'seller'),
-        )
+    # BUYER = 1
+    # SELLER = 2
+    # ROLE_CHOICES = (
+    #     (BUYER, 'buyer'),
+    #     (SELLER, 'seller'),
+    #     )
 
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
-
+    id = models.AutoField(primary_key=True)
+    role = models.CharField(max_length=20,unique=True)
     def __str__(self):
-         return self.get_id_display()
+        return '%s'%(self.role)
+    # def __str__(self):
+    #      return self.get_id_display()
 
 
 class User(AbstractUser):
@@ -33,7 +35,7 @@ class OTP(models.Model):
     """
     Model to store Otp of user And verify user.
     """
-    receiver = models.OneToOneField(User, on_delete = models.CASCADE)
+    receiver = models.OneToOneField(User, on_delete=models.CASCADE)
     otp = models.IntegerField(null=False,blank=False)
     sent_on= models.DateTimeField(auto_now_add=True)
 
@@ -171,6 +173,7 @@ class Subcategory(models.Model):
 
 class Product(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    # subcategory = models.OneToOneField(Subcategory,on_delete=models.CASCADE)
     name = models.CharField(max_length=15,null=False,blank=False)
     image = models.ImageField(default='product_pics/download.png',null=False,blank=False,upload_to='product_pics')
     video = models.FileField(upload_to ='product_videos', null=True, blank=True)
@@ -186,7 +189,7 @@ class Product(models.Model):
         ('furnitures','Furnitures')
     )
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
-    subcategory = models.OneToOneField(Subcategory,on_delete=models.CASCADE)
+
 
     def __str__(self):
         return "%s is of %s"%(self.name,self.user.username)

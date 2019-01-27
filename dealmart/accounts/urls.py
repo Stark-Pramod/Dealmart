@@ -11,11 +11,12 @@ router = DefaultRouter()
 router.register(r'daddress', views.DeliveryAddressView)
 router.register(r'paddress',views.PickupAddressView)
 router.register(r'sdetail',views.SellerDetailsView)
-router.register(r'role',views.RoleView)
 router.register(r'product_upload',views.ProductView)
+# router.register()
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
+    url(r'^api/role/$',views.RoleView.as_view()),
     url(r'^api/signup/$', views.SignUp.as_view()),
     url(r'^api/activate/(?P<user_id>[0-9]+)/$', views.Activate.as_view(), name='activate'),
     url(r'^api/resendotp/(?P<user_id>[0-9]+)/$',views.ResendOtp.as_view(), name='resend-otp'),

@@ -7,7 +7,6 @@ from rest_framework.validators import UniqueValidator
 from rest_framework.validators import UniqueTogetherValidator
 
 
-
 class UserSerializer(serializers.ModelSerializer):
     """
     serializer for creating user object
@@ -73,7 +72,10 @@ class RoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Role
-        fields= '__all__'
+        fields = '__all__'
+        read_only_fields = ('id',)
+
+
 
 class DeliveryAddressSerializer(serializers.ModelSerializer):
     """
@@ -94,6 +96,7 @@ class PickupAddressSerializer(serializers.ModelSerializer):
         model = PickupAddress
         fields = '__all__'
         read_only_fields = ('user',)
+
 
 class SellerDetailsSerializer(serializers.ModelSerializer):
 
@@ -148,25 +151,24 @@ class SubcategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
-    subcategory = SubcategorySerializer()
+    # subcategory = SubcategorySerializer()
 
     class Meta:
         model = Product
         fields = '__all__'
         read_only_fields = ('user',)
 
-    def create(self, validated_data):
-        subcategory_data = validated_data.pop('subcategory')
-        product = Product.objects.create(**validated_data)
-        subcategory = Subcategory.objects.create(**subcategory_data)
-        product.subcategory = subcategory
-        product.save()
-        return product
+    # def create(self, validated_data):
+    #     subcategory_data = validated_data.pop('subcategory')
+    #     product = Product.objects.create(**validated_data)
+        # subcategory = Subcategory.objects.create(**subcategory_data)
+        # product.subcategory = subcategory
+        # product.save()
+        # return product
         # return ValidationError("something went wrong")
 
     def validate(self, data):
         video = data.get('video')
-        print(video)
         image = data.get('image')
         limit_v = 50 * 1024 * 1024
         limit_i = 3 * 1024 * 1024

@@ -19,6 +19,7 @@ from datetime import timedelta
 from rest_framework.decorators import action
 
 # Create your views here.
+
 class SignUp(APIView):
     """
     List all user, or create a new user.
@@ -38,7 +39,7 @@ class SignUp(APIView):
         data.save()
         user.is_active = False
         user.save()
-        buyer = Role.objects.get(id=1)
+        buyer = Role.objects.get(role='Buyer')
         user.roles.add(buyer)
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
@@ -171,13 +172,22 @@ class Logout(APIView):
                         status=status.HTTP_200_OK)
 
 
-class RoleView(viewsets.ModelViewSet):
+class RoleView(generics.ListCreateAPIView):
     """
     view to create the different Role.
     """
     permission_classes = (permissions.IsAuthenticated,IsAdmin)
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = RoleSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            role = serializer.validated_data['role']
+            serializer.save(role=role)
+            return Response({'details':'role created'})
+        return Response({'error':'some error occured'})
+
 
 
 class DeliveryAddressView(viewsets.ModelViewSet):
@@ -229,7 +239,7 @@ class SellerDetailsView(viewsets.ModelViewSet):
         if SellerDetails.objects.filter(user=self.request.user):
             raise ValidationError("you are not allowed to add more than one detail set")
         user = self.request.user
-        seller = Role.objects.get(id=2)
+        seller = Role.objects.get(role='Seller')
         user.roles.add(seller)
         serializer.save(user=self.request.user)
 

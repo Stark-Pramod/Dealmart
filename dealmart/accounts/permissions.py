@@ -40,7 +40,7 @@ class IsBuyer(permissions.BasePermission):
         user =request.user
         roles = user.roles.all()
         for role in roles:
-            if role.id == 1:
+            if role.role == 'Buyer':
                 return True
             else:
                 return False
@@ -53,7 +53,7 @@ class IsSeller(permissions.BasePermission):
 
     def has_permission(self, request, view):
         user =request.user
-        role = user.roles.filter(id=2)
+        role = user.roles.filter(role='Seller')
         if role:
             return True
         else:
