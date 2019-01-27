@@ -158,13 +158,11 @@ class ProductSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         subcategory_data = validated_data.pop('subcategory')
         product = Product.objects.create(**validated_data)
-        serializer = SubcategorySerializer(data=subcategory_data)
-        if serializer.is_valid():
-            serializer.save()
-            product.subcategory = serializer
-            product.save()
-            return product
-        return ValidationError("something went wrong")
+        subcategory = Subcategory.objects.create(**subcategory_data)
+        product.subcategory = subcategory
+        product.save()
+        return product
+        # return ValidationError("something went wrong")
 
     def validate(self, data):
         video = data.get('video')
