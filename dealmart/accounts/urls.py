@@ -12,7 +12,7 @@ router.register(r'daddress', views.DeliveryAddressView)
 router.register(r'paddress',views.PickupAddressView)
 router.register(r'sdetail',views.SellerDetailsView)
 router.register(r'role',views.RoleView)
-router.register(r'product',views.ProductView)
+router.register(r'product_upload',views.ProductView)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

@@ -137,6 +137,7 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
     #     else:
     #         return data
 
+
 class SubcategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -148,18 +149,22 @@ class SubcategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
     subcategory = SubcategorySerializer()
+
     class Meta:
         model = Product
         fields = '__all__'
         read_only_fields = ('user',)
 
-
-
     def create(self, validated_data):
         subcategory_data = validated_data.pop('subcategory')
         product = Product.objects.create(**validated_data)
-        subcategory =Subcategory.objects.create(**subcategory_data)
-        return product
+        serializer = SubcategorySerializer(data=subcategory_data)
+        if serializer.is_valid():
+            serializer.save()
+            product.subcategory = serializer
+            product.save()
+            return product
+        return ValidationError("something went wrong")
 
     def validate(self, data):
         video = data.get('video')

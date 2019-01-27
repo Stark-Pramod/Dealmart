@@ -15,7 +15,8 @@ from rest_framework import permissions
 from .models import OTP
 from django.contrib.auth import login,logout
 from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import timedelta
+from rest_framework.decorators import action
 
 # Create your views here.
 class SignUp(APIView):
@@ -56,7 +57,7 @@ class Activate(APIView):
     """
     Activate verifies the stored otp and the otp entered by user.
     """
-    permission_classes = (IsUser,IsNotActive)
+    permission_classes = (permissions.AllowAny,)
     serializer_class = OTPSerializer
 
     def get(self,request,user_id,*args,**kwargs):
@@ -243,6 +244,22 @@ class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsOwner,IsSeller)
+
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     if self.action == 'list':
+    #         permission_classes = [permissions.IsAuthenticated]
+    #     else:
+    #         permission_classes = [IsAdmin,IsOwner]
+    #     return [permission() for permission in permission_classes]
+
+    def list(self, request, *args, **kwargs):
+        product = Product.objects.filter(user=request.user)
+        serializer = ProductSerializer(data=product,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

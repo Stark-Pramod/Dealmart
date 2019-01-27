@@ -186,7 +186,7 @@ class Product(models.Model):
         ('furnitures','Furnitures')
     )
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
-    subcategory = models.CharField(null=False,blank=False,max_length=30,default='------')
+    subcategory = models.OneToOneField(Subcategory,on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s is of %s"%(self.name,self.user.username)
