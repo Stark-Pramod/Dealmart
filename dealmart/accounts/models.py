@@ -9,19 +9,11 @@ class Role(models.Model):
     """
     this is defined to allot a role to a user.
     """
-    # BUYER = 1
-    # SELLER = 2
-    # ROLE_CHOICES = (
-    #     (BUYER, 'buyer'),
-    #     (SELLER, 'seller'),
-    #     )
 
     id = models.AutoField(primary_key=True)
     role = models.CharField(max_length=20,unique=True)
     def __str__(self):
         return '%s'%(self.role)
-    # def __str__(self):
-    #      return self.get_id_display()
 
 
 class User(AbstractUser):
@@ -110,65 +102,8 @@ class SellerDetails(models.Model):
     def __str__(self):
         return (self.user.username)
 
-class Subcategory(models.Model):
-    # product = models.OneToOneField(Product,on_delete=models.CASCADE)
-    ELEC_CH =(
-        ('mobile','Mobile'),
-        ('Laptop','Laptop'),
-        ('earphone','Earphone'),
-        ('speaker','Speaker'),
-        ('air_conditioner','Air Conditioner'),
-        ('washing_machine','Washing Machine'),
-        ('water_pump','Water Pump'),
-        ('hair_drier','Hair Drier'),
-        ('projector','Projector'),
-        ('desktop','Desktop'),
-        ('cpu','CPU'),
-        ('mouse','Mouse'),
-        ('keyboard','Keyboard'),
-        ('other','Other')
-    )
-    DEC_CH= (
-        ('vase','Vase'),
-        ('painting','Painting'),
-        ('statue','Statue'),
-        ('curtain','Curtain'),
-        ('bedsheet','Bedsheet'),
-    )
-    MEN_WEAR_CH =(
-        ('shirt','Shirt'),
-        ('t-shirt','T-shirt'),
-        ('jeans','Jeans'),
-        ('pant','Pant'),
-        ('trouser','Trouser'),
-        ('jacket','Jacket'),
-        ('suit','Suit')
-    )
-    WOMEN_WEAR_CH = (
-        ('top','Top'),
-        ('jeans','Jeans'),
-        ('saari','Saari'),
-        ('lehnga','Lehnga'),
-        ('t-shirt','T-shirt'),
-        ('suit','Suit'),
-        ('salwar','Salwar'),
-    )
-    KIDS_CH = (
-        ('cap','Cap'),
-        ('shirt','Shirt'),
-        ('inner_wear','Inner Wear'),
-        ('diaper','Diaper'),
-        ('t-shirt','T-shirt'),
-        ('half-pant','Half Pant'),
-        ('full-pant','Full Pant'),
-        ('bottle','Bottle')
-    )
 
-    electronics = models.CharField(choices=ELEC_CH,null=True,blank=True,max_length=30)
-    decorations = models.CharField(choices=DEC_CH,null=True,blank=True,max_length=30)
-    men_wears = models.CharField(choices=MEN_WEAR_CH,null=True,blank=True,max_length=30)
-    women_wears = models.CharField(choices=WOMEN_WEAR_CH,null=True,blank=True,max_length=30)
-    kids = models.CharField(choices=KIDS_CH,null=True,blank=True,max_length=30)
+class Subcategory(models.Model):
 
 
 class Product(models.Model):
@@ -179,14 +114,18 @@ class Product(models.Model):
     video = models.FileField(upload_to ='product_videos', null=True, blank=True)
     CAT_CH=(
         ('electronics','Electronics'),
-        ('decorations','Decorations'),
-        ('men wears','Men Wears'),
-        ('women wears','Women Wears'),
+        ('mobile','Mobile'),
+        ('laptop','Laptop'),
+        ('men','Men'),
+        ('women','Women'),
         ('kids','Kids'),
         ('groceries','Groceries'),
         ('cosmetics','Cosmetics'),
+        ('footwear','Footwear'),
+        ('sports','Sports'),
         ('books','Books'),
-        ('furnitures','Furnitures')
+        ('furnitures','Furnitures'),
+        ('decorations','Decorations'),
     )
     category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
 

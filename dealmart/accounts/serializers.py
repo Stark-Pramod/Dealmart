@@ -141,12 +141,81 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
     #         return data
 
 
-class SubcategorySerializer(serializers.ModelSerializer):
+def get_my_choices(category):
+
+    if category == "electronics":
+        choice_list = (
+            ('mobile','Mobile'),
+            ('Laptop','Laptop'),
+            ('earphone','Earphone'),
+            ('speaker','Speaker'),
+            ('air_conditioner','Air Conditioner'),
+            ('washing_machine','Washing Machine'),
+            ('water_pump','Water Pump'),
+            ('hair_drier','Hair Drier'),
+            ('projector','Projector'),
+            ('desktop','Desktop'),
+            ('cpu','CPU'),
+            ('mouse','Mouse'),
+            ('keyboard','Keyboard'),
+            ('other','Other')
+        )
+    elif category == 'men':
+        choice_list = (
+                ('shirt','Shirt'),
+                ('t-shirt','T-shirt'),
+                ('jeans','Jeans'),
+                ('pant','Pant'),
+                ('trouser','Trouser'),
+                ('jacket','Jacket'),
+                ('suit','Suit')
+            )
+    elif category == 'women':
+        choice_list = (
+            ('top','Top'),
+            ('jeans','Jeans'),
+            ('saari','Saari'),
+            ('lehnga','Lehnga'),
+            ('t-shirt','T-shirt'),
+            ('suit','Suit'),
+            ('salwar','Salwar'),
+        )
+    elif category == 'kids':
+        choice_list = (
+                ('cap','Cap'),
+                ('shirt','Shirt'),
+                ('inner_wear','Inner Wear'),
+                ('diaper','Diaper'),
+                ('t-shirt','T-shirt'),
+                ('half-pant','Half Pant'),
+                ('full-pant','Full Pant'),
+                ('bottle','Bottle')
+            )
+    elif category == 'decoration':
+        choice_list= (
+            ('vase','Vase'),
+            ('painting','Painting'),
+            ('statue','Statue'),
+            ('curtain','Curtain'),
+            ('bedsheet','Bedsheet'),
+        )
+    else:
+        choice_list = (
+            ('others','others')
+        )
+    return choice_list
+
+class SubcategorySerializer(serializers.Serializer):
+
+    def __init__(self, *args, **kwargs):
+        super(SubcategorySerializer, self).__init__(*args,**kwargs)
+        category = self.context['category']
+        self.fields['subcategory'] = serializers.ChoiceField(
+                                             choices=get_my_choices(category=category))
 
     class Meta:
-        model = Subcategory
         fields = '__all__'
-        read_only_fields=('product',)
+        # read_only_fields=('product',)
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -158,14 +227,10 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user',)
 
-    # def create(self, validated_data):
-    #     subcategory_data = validated_data.pop('subcategory')
-    #     product = Product.objects.create(**validated_data)
-        # subcategory = Subcategory.objects.create(**subcategory_data)
-        # product.subcategory = subcategory
-        # product.save()
-        # return product
-        # return ValidationError("something went wrong")
+    def create(self, validated_data):
+        subcategory_data = validated_data.pop('subcategory')
+        product = Product.objects.create(**validated_data)
+        return product
 
     def validate(self, data):
         video = data.get('video')

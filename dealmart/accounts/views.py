@@ -255,16 +255,6 @@ class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsOwner,IsSeller)
 
-    # def get_permissions(self):
-    #     """
-    #     Instantiates and returns the list of permissions that this view requires.
-    #     """
-    #     if self.action == 'list':
-    #         permission_classes = [permissions.IsAuthenticated]
-    #     else:
-    #         permission_classes = [IsAdmin,IsOwner]
-    #     return [permission() for permission in permission_classes]
-
     def list(self, request, *args, **kwargs):
         product = Product.objects.filter(user=request.user)
         serializer = ProductSerializer(data=product,many=True)
@@ -273,3 +263,18 @@ class ProductView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class SubcategoryView(generics.CreateAPIView):
+    serializer_class = SubcategorySerializer
+
+    def get_serializer_context(self):
+        category = self.kwargs['category']
+        return {'category':category}
+
+
+
+
+
+
+
