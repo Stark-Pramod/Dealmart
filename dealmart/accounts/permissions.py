@@ -42,8 +42,7 @@ class IsBuyer(permissions.BasePermission):
         for role in roles:
             if role.role == 'Buyer':
                 return True
-            else:
-                return False
+        return False
 
 
 class IsSeller(permissions.BasePermission):

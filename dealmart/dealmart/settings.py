@@ -30,7 +30,7 @@ SECRET_KEY = '62(nf21nr6d95y*%xfkr62sakn8o8&!@y&xk_@)6mmf-wn90&%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ ]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'accounts',
     'phonenumber_field',
     'rest_framework_jwt',
+    'corsheaders'
     ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'dealmart.urls'

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
+import json
 from .models import *
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
@@ -140,87 +141,101 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
     #     else:
     #         return data
 
+#
+# def get_my_choices(category):
+#
+#     if category == "electronics":
+#         choice_list = (
+#             ('mobile','Mobile'),
+#             ('Laptop','Laptop'),
+#             ('earphone','Earphone'),
+#             ('speaker','Speaker'),
+#             ('air_conditioner','Air Conditioner'),
+#             ('washing_machine','Washing Machine'),
+#             ('water_pump','Water Pump'),
+#             ('hair_drier','Hair Drier'),
+#             ('projector','Projector'),
+#             ('desktop','Desktop'),
+#             ('cpu','CPU'),
+#             ('mouse','Mouse'),
+#             ('keyboard','Keyboard'),
+#             ('other','Other')
+#         )
+#     elif category == 'men':
+#         choice_list = (
+#                 ('shirt','Shirt'),
+#                 ('t-shirt','T-shirt'),
+#                 ('jeans','Jeans'),
+#                 ('pant','Pant'),
+#                 ('trouser','Trouser'),
+#                 ('jacket','Jacket'),
+#                 ('suit','Suit')
+#             )
+#     elif category == 'women':
+#         choice_list = (
+#             ('top','Top'),
+#             ('jeans','Jeans'),
+#             ('saari','Saari'),
+#             ('lehnga','Lehnga'),
+#             ('t-shirt','T-shirt'),
+#             ('suit','Suit'),
+#             ('salwar','Salwar'),
+#         )
+#     elif category == 'kids':
+#         choice_list = (
+#                 ('cap','Cap'),
+#                 ('shirt','Shirt'),
+#                 ('inner_wear','Inner Wear'),
+#                 ('diaper','Diaper'),
+#                 ('t-shirt','T-shirt'),
+#                 ('half-pant','Half Pant'),
+#                 ('full-pant','Full Pant'),
+#                 ('bottle','Bottle')
+#             )
+#     elif category == 'decoration':
+#         choice_list= (
+#             ('vase','Vase'),
+#             ('painting','Painting'),
+#             ('statue','Statue'),
+#             ('curtain','Curtain'),
+#             ('bedsheet','Bedsheet'),
+#         )
+#     else:
+#         choice_list = (
+#             ('others','others')
+#         )
+#     return choice_list
 
-def get_my_choices(category):
-
-    if category == "electronics":
-        choice_list = (
-            ('mobile','Mobile'),
-            ('Laptop','Laptop'),
-            ('earphone','Earphone'),
-            ('speaker','Speaker'),
-            ('air_conditioner','Air Conditioner'),
-            ('washing_machine','Washing Machine'),
-            ('water_pump','Water Pump'),
-            ('hair_drier','Hair Drier'),
-            ('projector','Projector'),
-            ('desktop','Desktop'),
-            ('cpu','CPU'),
-            ('mouse','Mouse'),
-            ('keyboard','Keyboard'),
-            ('other','Other')
-        )
-    elif category == 'men':
-        choice_list = (
-                ('shirt','Shirt'),
-                ('t-shirt','T-shirt'),
-                ('jeans','Jeans'),
-                ('pant','Pant'),
-                ('trouser','Trouser'),
-                ('jacket','Jacket'),
-                ('suit','Suit')
-            )
-    elif category == 'women':
-        choice_list = (
-            ('top','Top'),
-            ('jeans','Jeans'),
-            ('saari','Saari'),
-            ('lehnga','Lehnga'),
-            ('t-shirt','T-shirt'),
-            ('suit','Suit'),
-            ('salwar','Salwar'),
-        )
-    elif category == 'kids':
-        choice_list = (
-                ('cap','Cap'),
-                ('shirt','Shirt'),
-                ('inner_wear','Inner Wear'),
-                ('diaper','Diaper'),
-                ('t-shirt','T-shirt'),
-                ('half-pant','Half Pant'),
-                ('full-pant','Full Pant'),
-                ('bottle','Bottle')
-            )
-    elif category == 'decoration':
-        choice_list= (
-            ('vase','Vase'),
-            ('painting','Painting'),
-            ('statue','Statue'),
-            ('curtain','Curtain'),
-            ('bedsheet','Bedsheet'),
-        )
-    else:
-        choice_list = (
-            ('others','others')
-        )
-    return choice_list
-
-class SubcategorySerializer(serializers.Serializer):
-
-    def __init__(self, *args, **kwargs):
-        super(SubcategorySerializer, self).__init__(*args,**kwargs)
-        category = self.context['category']
-        self.fields['subcategory'] = serializers.ChoiceField(
-                                             choices=get_my_choices(category=category))
+class CreateCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = Category
         fields = '__all__'
-        # read_only_fields=('product',)
+# class SubcategorySerializer(serializers.ModelSerializer):
+    # subcategory = serializers.ChoiceField(choices=get_sub_choices)
 
+    # def __init__(self, *args, **kwargs):
+    #     super(SubcategorySerializer, self).__init__(*args,**kwargs)
+    #     if self.context:
+    #         category = self.context['category']
+    #         self.fields['subcategory'] = serializers.ChoiceField(
+    #                                          choices=get_my_choices(category=category))
+    #
+    # class Meta:
+    #     model = Subcategory
+    #     fields = '__all__'
+    #     read_only_fields=('product',)
+
+def get_choices():
+    subcats = Subcategory.objects.all()
+    choice = [(subcat.subcategory,subcat.subcategory.capitalize()) for subcat in subcats]
+    print(choice)
+    return choice
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
     # subcategory = SubcategorySerializer()
+    category = serializers.ChoiceField(choices=get_choices())
 
     class Meta:
         model = Product
@@ -228,7 +243,8 @@ class ProductSerializer(serializers.ModelSerializer):
         read_only_fields = ('user',)
 
     def create(self, validated_data):
-        subcategory_data = validated_data.pop('subcategory')
+        # subcategory_data = validated_data.pop('subcategory')
+        # print(subcategory_data)
         product = Product.objects.create(**validated_data)
         return product
 

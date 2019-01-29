@@ -50,8 +50,7 @@ class SignUp(APIView):
         to_mail = [user.email]
         send_mail(subject, message, from_mail, to_mail, fail_silently=False)
         return Response({'details': username+',Please confirm your email to complete registration.',
-                                'user_id': user.id },
-                                 status=status.HTTP_201_CREATED)
+                                'user_id': user.id })
 
 
 class Activate(APIView):
@@ -265,12 +264,13 @@ class ProductView(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class SubcategoryView(generics.CreateAPIView):
-    serializer_class = SubcategorySerializer
-
-    def get_serializer_context(self):
-        category = self.kwargs['category']
-        return {'category':category}
+#
+# class SubcategoryView(generics.CreateAPIView):
+#     serializer_class = SubcategorySerializer
+#
+#     def get_serializer_context(self):
+#         category = self.kwargs['category']
+#         return {'category':category}
 
 
 
