@@ -103,7 +103,7 @@ class SellerDetails(models.Model):
         return (self.user.username)
 
 class Category(models.Model):
-    category = models.CharField(max_length=30,null=True,blank=False)
+    category = models.CharField(max_length=30,null=True,blank=False,unique=True)
 
     def __str__(self):
         return "%s"%(self.category)
@@ -113,37 +113,29 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     subcategory = models.CharField(max_length=30,null=False,blank=False)
 
+    class Meta:
+         unique_together = ('category', 'subcategory')
+
     def __str__(self):
         return "%s"%(self.subcategory)
 
 
-
 class Product(models.Model):
-    category = models.OneToOneField(Category,on_delete=models.CASCADE)
-    subcategory = models.OneToOneField(Subcategory,on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(Subcategory,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=15,null=False,blank=False)
     image = models.ImageField(default='product_pics/download.png',null=False,blank=False,upload_to='product_pics')
     video = models.FileField(upload_to ='product_videos', null=True, blank=True)
-    # CAT_CH = (
-    #     ('electronics','Electronics'),
-    #     ('mobile','Mobile'),
-    #     ('laptop','Laptop'),
-    #     ('men','Men'),
-    #     ('women','Women'),
-    #     ('kids','Kids'),
-    #     ('groceries','Groceries'),
-    #     ('cosmetics','Cosmetics'),
-    #     ('footwear','Footwear'),
-    #     ('sports','Sports'),
-    #     ('books','Books'),
-    #     ('furnitures','Furnitures'),
-    #     ('decorations','Decorations'),
-    # )
-    # category = models.CharField(choices=CAT_CH,max_length=20,blank=True)
 
 
     def __str__(self):
         return "%s is of %s"%(self.name,self.user.username)
 
 
+class Cart(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    product = models.ManyToManyField(Product)
+
+    def __str__(self):
+        return "%s added to cart"%(self.user.username)

@@ -206,41 +206,38 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
 #         )
 #     return choice_list
 
-class CreateCategorySerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Category
-        fields = '__all__'
-# class SubcategorySerializer(serializers.ModelSerializer):
-    # subcategory = serializers.ChoiceField(choices=get_sub_choices)
+def get_choices(category):
+    # category = self.kwargs['category']
+        # category_choice = Category.objects.get(category=category)
+        subcats = Subcategory.objects.filter(category=category)
+        choice = [(subcat.subcategory,subcat.subcategory.capitalize()) for subcat in subcats]
+        return choice
 
-    # def __init__(self, *args, **kwargs):
-    #     super(SubcategorySerializer, self).__init__(*args,**kwargs)
-    #     if self.context:
-    #         category = self.context['category']
-    #         self.fields['subcategory'] = serializers.ChoiceField(
-    #                                          choices=get_my_choices(category=category))
-    #
-    # class Meta:
-    #     model = Subcategory
-    #     fields = '__all__'
-    #     read_only_fields=('product',)
 
-def get_choices():
-    subcats = Subcategory.objects.all()
-    choice = [(subcat.subcategory,subcat.subcategory.capitalize()) for subcat in subcats]
-    print(choice)
-    return choice
+class ListSubcategorySerializer(serializers.Serializer):
+
+    def __init__(self, *args, **kwargs):
+        super(ListSubcategorySerializer, self).__init__(*args,**kwargs)
+        if self.context:
+            category = self.context['category']
+            try:
+                category_choice = Category.objects.get(category=category)
+            except Category.DoesNotExist:
+                category_choice = None
+            if category_choice is not None:
+                self.fields['subcategory'] = serializers.ChoiceField(
+                                             choices=get_choices(category=category_choice))
+
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
-    # subcategory = SubcategorySerializer()
-    category = serializers.ChoiceField(choices=get_choices())
+    subcategory_chosen = ListSubcategorySerializer()
 
     class Meta:
         model = Product
         fields = '__all__'
-        read_only_fields = ('user',)
+        read_only_fields = ('user','subcategory')
 
     def create(self, validated_data):
         # subcategory_data = validated_data.pop('subcategory')
@@ -259,3 +256,11 @@ class ProductSerializer(serializers.ModelSerializer):
             raise ValidationError('Image too large.Size should not exceed 50 MB')
         else:
             return data
+
+
+class CartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cart
+        fields = '__all__'
+        read_only_field = ('user',)

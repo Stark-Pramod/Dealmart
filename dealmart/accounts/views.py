@@ -73,7 +73,7 @@ class Activate(APIView):
         code = code.validated_data['otp']
         try:
             otp = OTP.objects.get(receiver=user_id)
-        except(TypeError, ValueError, OverflowError, otp.DoesNotExist):
+        except(TypeError, ValueError, OverflowError, OTP.DoesNotExist):
                 otp = None
         try:
             receiver = User.objects.get(id=user_id)
@@ -264,13 +264,37 @@ class ProductView(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-#
-# class SubcategoryView(generics.CreateAPIView):
-#     serializer_class = SubcategorySerializer
-#
-#     def get_serializer_context(self):
-#         category = self.kwargs['category']
-#         return {'category':category}
+class CartView(viewsets.ModelViewSet):
+    serializer_class = CartSerializer
+    queryset = Cart.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        product = Cart.objects.filter(user=request.user)
+        serializer = CartSerializer(data=product,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        pass
+
+
+class SubcategoryView(generics.CreateAPIView):
+    serializer_class = ListSubcategorySerializer
+
+    def get_object(self):
+        category = self.kwargs['category']
+        try:
+            category_choice = Category.objects.get(category=category)
+        except Category.DoesNotExist:
+           category_choice = None
+        if category_choice is not None:
+           return Response("ok")
+        else:
+           return Response("not allowed")
+
+    def get_serializer_context(self):
+        category = self.kwargs['category']
+        return {'category':category}
 
 
 
