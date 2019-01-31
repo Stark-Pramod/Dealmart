@@ -296,7 +296,7 @@ class CartView(generics.ListAPIView):
         return Response(serializer.data)
 
 
-class AddToCartView(APIView):
+class AddOrRemoveToCartView(APIView):
 
     def get(self,request,*args,**kwargs):
         id = self.kwargs['product_id']
@@ -323,8 +323,6 @@ class AddToCartView(APIView):
                 cart.product.remove(product_selected)
                 return Response({'message':'Removed from cart'})
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 

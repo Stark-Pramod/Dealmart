@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^api/login/$',views.Login.as_view(), name='login'),
     url(r'^api/logout/$',views.Logout.as_view(), name='logout'),
     url(r'^api/cart/$',views.CartView.as_view()),
-    url(r'^api/addtocart/(?P<product_id>[0-9]+)/$',views.AddToCartView.as_view()),
+    url(r'^api/cart/(?P<product_id>[0-9]+)/$',views.AddOrRemoveToCartView.as_view()),
     url(r'^api/(?P<category>[0-9 a-z A-Z]+)/$',views.SubcategoryView.as_view()),
     url(r'^docs/', include_docs_urls(title='My API title'))
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

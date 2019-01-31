@@ -140,3 +140,20 @@ class Cart(models.Model):
 
     def __str__(self):
         return "this is %s cart"%(self.user.username)
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.OneToOneField(Product,on_delete=models.CASCADE)
+    delivery_address = models.OneToOneField(DeliveryAddress,on_delete=models.CASCADE)
+    net_price = models.IntegerField(null=False,blank=False)
+    payment = models.BooleanField(default=False)
+    delivered = models.BooleanField(default=False)
+    payment_choice = (
+        ('Paytm','paytm'),
+        ('Cash on delivery','COD')
+         )
+    payment_mode = models.CharField(max_length=30,choices=payment_choice)
+
+    def __str__(self):
+        return "%s placed %s"%(self.user.username,self.product.name)
