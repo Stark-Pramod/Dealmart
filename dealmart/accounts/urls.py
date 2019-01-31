@@ -12,7 +12,7 @@ router.register(r'daddress', views.DeliveryAddressView)
 router.register(r'paddress',views.PickupAddressView)
 router.register(r'sdetail',views.SellerDetailsView)
 router.register(r'product_upload',views.ProductView)
-# router.register(r'cart',views.CartView)
+router.register(r'order/(?P<product_id>[0-9]+)',views.OrderView)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

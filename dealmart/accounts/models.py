@@ -149,6 +149,7 @@ class Order(models.Model):
     net_price = models.IntegerField(null=False,blank=False)
     payment = models.BooleanField(default=False)
     delivered = models.BooleanField(default=False)
+    cancel_status = models.BooleanField(default=False)
     payment_choice = (
         ('Paytm','paytm'),
         ('Cash on delivery','COD')

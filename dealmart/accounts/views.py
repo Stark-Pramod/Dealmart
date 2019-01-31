@@ -325,6 +325,20 @@ class AddOrRemoveToCartView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+class OrderView(viewsets.ModelViewSet):
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
+    permission_classes = (permissions.IsAuthenticated,IsOwner)
+
+    def list(self, request, *args, **kwargs):
+        order = Order.objects.filter(user=request.user)
+        serializer = OrderSerializer(data=order,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
+
+    def perform_create(self, serializer):
+        product = self.kwargs['product_id']
+        serializer.save(user=self.request.user,product=product)
 
 
 
