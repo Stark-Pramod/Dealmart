@@ -12,7 +12,7 @@ router.register(r'daddress', views.DeliveryAddressView)
 router.register(r'paddress',views.PickupAddressView)
 router.register(r'sdetail',views.SellerDetailsView)
 router.register(r'product_upload',views.ProductView)
-router.register(r'cart',views.CartView)
+# router.register(r'cart',views.CartView)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^api/resendotp/(?P<user_id>[0-9]+)/$',views.ResendOtp.as_view(), name='resend-otp'),
     url(r'^api/login/$',views.Login.as_view(), name='login'),
     url(r'^api/logout/$',views.Logout.as_view(), name='logout'),
+    url(r'^api/cart/$',views.CartView.as_view()),
+    url(r'^api/addtocart/(?P<product_id>[0-9]+)/$',views.AddToCartView.as_view()),
     url(r'^api/(?P<category>[0-9 a-z A-Z]+)/$',views.SubcategoryView.as_view()),
     url(r'^docs/', include_docs_urls(title='My API title'))
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

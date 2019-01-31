@@ -1,5 +1,6 @@
 from .serializers import *
 from .permissions import *
+from django.db.models import Q
 from .backends import EmailOrUsername
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
@@ -90,6 +91,7 @@ class Activate(APIView):
         if otp.otp == code:
             receiver.is_active = True
             receiver.save()
+            Cart.objects.create(user=receiver)
             login(request, receiver)
             otp.delete()
             return Response({'message': 'Thank you for Email Verification you are successfully logged in'},
@@ -263,21 +265,6 @@ class ProductView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
-class CartView(viewsets.ModelViewSet):
-    serializer_class = CartSerializer
-    queryset = Cart.objects.all()
-
-    def list(self, request, *args, **kwargs):
-        product = Cart.objects.filter(user=request.user)
-        serializer = CartSerializer(data=product,many=True)
-        serializer.is_valid()
-        return Response(serializer.data)
-
-    def update(self, request, *args, **kwargs):
-        pass
-
-
 class SubcategoryView(generics.CreateAPIView):
     serializer_class = ListSubcategorySerializer
 
@@ -295,6 +282,47 @@ class SubcategoryView(generics.CreateAPIView):
     def get_serializer_context(self):
         category = self.kwargs['category']
         return {'category':category}
+
+
+class CartView(generics.ListAPIView):
+    serializer_class = CartSerializer
+    queryset = Cart.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        cart = Cart.objects.get(user=request.user)
+        product_list = Product.objects.filter(cart=cart)
+        serializer = ProductSerializer(data=product_list,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
+
+
+class AddToCartView(APIView):
+
+    def get(self,request,*args,**kwargs):
+        id = self.kwargs['product_id']
+        cart = Cart.objects.get(user=request.user)
+        try:
+            product_in_cart = Product.objects.get(Q(cart=cart)&Q(id=id))
+        except Product.DoesNotExist:
+            product_in_cart = None
+        if product_in_cart is None:
+            try:
+                product_selected = Product.objects.get(id=id)
+            except Product.DoesNotExist:
+                product_selected = None
+            if product_selected is not None:
+                cart.product.add(product_selected)
+                return Response({'message':'Added to cart'})
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            try:
+                product_selected = Product.objects.get(id=id)
+            except Product.DoesNotExist:
+                product_selected = None
+            if product_selected is not None:
+                cart.product.remove(product_selected)
+                return Response({'message':'Removed from cart'})
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 

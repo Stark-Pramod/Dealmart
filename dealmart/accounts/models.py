@@ -12,6 +12,7 @@ class Role(models.Model):
 
     id = models.AutoField(primary_key=True)
     role = models.CharField(max_length=20,unique=True)
+
     def __str__(self):
         return '%s'%(self.role)
 
@@ -102,6 +103,7 @@ class SellerDetails(models.Model):
     def __str__(self):
         return (self.user.username)
 
+
 class Category(models.Model):
     category = models.CharField(max_length=30,null=True,blank=False,unique=True)
 
@@ -126,8 +128,7 @@ class Product(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=15,null=False,blank=False)
     image = models.ImageField(default='product_pics/download.png',null=False,blank=False,upload_to='product_pics')
-    video = models.FileField(upload_to ='product_videos', null=True, blank=True)
-
+    video = models.FileField(upload_to='product_videos', null=True, blank=True)
 
     def __str__(self):
         return "%s is of %s"%(self.name,self.user.username)
@@ -138,4 +139,4 @@ class Cart(models.Model):
     product = models.ManyToManyField(Product)
 
     def __str__(self):
-        return "%s added to cart"%(self.user.username)
+        return "this is %s cart"%(self.user.username)
