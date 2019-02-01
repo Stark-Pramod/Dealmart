@@ -70,3 +70,31 @@ class IsAdmin(permissions.BasePermission):
             return True
         return False
 
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to edit it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Write permissions are only allowed to the owner of the snippet.
+        return IsSeller()
+
+
+class UserPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        if view.action in ['list','retrieve']:
+            return True
+        elif view.action in ['create', 'update', 'partial_update', 'destroy']:
+            user =request.user
+            role = user.roles.filter(role='Seller')
+            if role:
+                return True
+            else:
+                return False

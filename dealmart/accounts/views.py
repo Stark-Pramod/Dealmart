@@ -254,13 +254,14 @@ class SellerDetailsView(viewsets.ModelViewSet):
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = (permissions.IsAuthenticated,IsOwner,IsSeller)
+    permission_classes = (permissions.IsAuthenticated,UserPermission)
 
-    def list(self, request, *args, **kwargs):
-        product = Product.objects.filter(user=request.user)
-        serializer = ProductSerializer(data=product,many=True)
-        serializer.is_valid()
-        return Response(serializer.data)
+
+    # def list(self, request, *args, **kwargs):
+    #     product = Product.objects.filter(user=request.user)
+    #     serializer = ProductSerializer(data=product,many=True)
+    #     serializer.is_valid()
+    #     return Response(serializer.data)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

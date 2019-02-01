@@ -11,7 +11,7 @@ router = DefaultRouter()
 router.register(r'daddress', views.DeliveryAddressView)
 router.register(r'paddress',views.PickupAddressView)
 router.register(r'sdetail',views.SellerDetailsView)
-router.register(r'product_upload',views.ProductView)
+router.register(r'product',views.ProductView)
 router.register(r'order/(?P<product_id>[0-9]+)',views.OrderView)
 
 urlpatterns = [
