@@ -254,7 +254,7 @@ class SellerDetailsView(viewsets.ModelViewSet):
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = (permissions.IsAuthenticated,UserPermission)
+    permission_classes = (permissions.IsAuthenticated,IsSellerOrReadOnly,IsOwnerOrReadOnly)
 
 
     # def list(self, request, *args, **kwargs):
@@ -288,6 +288,7 @@ class SubcategoryView(generics.CreateAPIView):
 class CartView(generics.ListAPIView):
     serializer_class = CartSerializer
     queryset = Cart.objects.all()
+    permission_classes = (permissions.IsAuthenticated,IsOwner)
 
     def list(self, request, *args, **kwargs):
         cart = Cart.objects.get(user=request.user)
@@ -339,7 +340,25 @@ class OrderView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         product = self.kwargs['product_id']
-        serializer.save(user=self.request.user,product=product)
+        prod = Product.objects.get(id=product)
+        serializer.save(user=self.request.user,product=prod)
+
+    def update(self, request, *args, **kwargs):
+        pass
+
+    # @action(methods=['POST'],detail=True)
+    # def cancel(self,request,*args,**kwargs):
+    #     pass
 
 
+class PaymentView(viewsets.ModelViewSet):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
+    permission_classes = (permissions.IsAuthenticated,IsOwner)
+
+    def get_queryset(self):
+        return Payment.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 

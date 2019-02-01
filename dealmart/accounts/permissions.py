@@ -83,10 +83,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the snippet.
-        return IsSeller()
+        return obj.user.username == request.user.username
 
 
-class UserPermission(permissions.BasePermission):
+class IsSellerOrReadOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if view.action in ['list','retrieve']:
