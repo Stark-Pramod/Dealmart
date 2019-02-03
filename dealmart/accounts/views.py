@@ -408,3 +408,20 @@ class RatingView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class FeedbackView(viewsets.ModelViewSet):
+    serializer_class = FeedbackSerializer
+    queryset = Feedback.objects.all()
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+    lookup_url_kwarg = 'product_id'
+
+    # def get_queryset(self):
+    #     if self.kwargs['product_id']:
+    #         product_id=self.kwargs['product_id']
+    #         return Feedback.objects.filter(product=product_id)
+    #     else:
+    #         return Response("wrong request")
+
+    # def list(self, request, *args, **kwargs):
+    #     product = self.kwargs['product_id']

@@ -293,3 +293,11 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = '__all__'
         read_only_fields = ('user','product',)
+
+
+class FeedbackSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Feedback
+        fields = '__all__'
+        read_only_fields = ('user','product','written_on')

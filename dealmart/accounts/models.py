@@ -181,3 +181,13 @@ class Rating(models.Model):
 
     def __str__(self):
         return "%s rated %s"%(self.user.username,self.product.name)
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    written_on = models.DateTimeField(auto_now_add=True)
+    feedback = models.TextField(max_length=100,null=False,blank=False)
+
+    def __str__(self):
+        return "%s reviewed %s"%(self.user.username,self.product.name)
