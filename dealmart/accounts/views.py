@@ -5,7 +5,8 @@ from .backends import EmailOrUsername
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 User=get_user_model()
-from rest_framework import status
+import django_filters.rest_framework
+from rest_framework import status,filters
 from rest_framework import generics,viewsets,mixins
 from rest_framework.views import APIView
 from django.template.loader import render_to_string
@@ -255,6 +256,9 @@ class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsSellerOrReadOnly,IsOwnerOrReadOnly)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('^name','^category__category','^subcategory__subcategory',)
+    filter_fields = ('category__category', 'subcategory__subcategory')
 
 
     # def list(self, request, *args, **kwargs):

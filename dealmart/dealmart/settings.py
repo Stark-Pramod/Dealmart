@@ -46,8 +46,14 @@ INSTALLED_APPS = [
     'accounts',
     'phonenumber_field',
     'rest_framework_jwt',
-    'corsheaders'
+    'corsheaders',
+    'django_filters',
     ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 
