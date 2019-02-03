@@ -346,11 +346,6 @@ class OrderView(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         pass
 
-    # @action(methods=['POST'],detail=True)
-    # def cancel(self,request,*args,**kwargs):
-    #     pass
-
-
 class PaymentView(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
