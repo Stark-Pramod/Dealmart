@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53f67f7-1612-4188-bcf6-c7f43d67a1fe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dealmart/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/dealmart/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/dealmart/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,13 +51,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="152" />
-          <entry key="py" value="47423" />
+          <entry key="py" value="47434" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="152" />
-          <entry key="Python" value="47423" />
+          <entry key="Python" value="47434" />
         </counts>
       </usages-collector>
     </session>
@@ -81,19 +79,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="259" column="45" lean-forward="true" selection-start-line="259" selection-start-column="45" selection-end-line="259" selection-end-column="45" />
+            <state relative-caret-position="156">
+              <caret line="261" column="32" selection-start-line="261" selection-start-column="32" selection-end-line="261" selection-end-column="32" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <marker date="1549191542542" expanded="true" signature="812:813" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="979:985" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="2531:2536" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="8890:8896" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="9906:9912" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="10158:10163" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="10858:10994" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="11040:11049" ph="..." />
-                <marker date="1549191542542" expanded="true" signature="13106:13107" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="874:875" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="1041:1047" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="2593:2598" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="8952:8958" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="9968:9974" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="10220:10225" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="10920:11056" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="11102:11111" ph="..." />
+                <marker date="1549196112893" expanded="true" signature="13168:13169" ph="..." />
               </folding>
             </state>
           </provider>
@@ -467,19 +465,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="259" column="45" lean-forward="true" selection-start-line="259" selection-start-column="45" selection-end-line="259" selection-end-column="45" />
+        <state relative-caret-position="156">
+          <caret line="261" column="32" selection-start-line="261" selection-start-column="32" selection-end-line="261" selection-end-column="32" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <marker date="1549191542542" expanded="true" signature="812:813" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="979:985" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="2531:2536" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="8890:8896" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="9906:9912" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="10158:10163" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="10858:10994" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="11040:11049" ph="..." />
-            <marker date="1549191542542" expanded="true" signature="13106:13107" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="874:875" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="1041:1047" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="2593:2598" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="8952:8958" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="9968:9974" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="10220:10225" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="10920:11056" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="11102:11111" ph="..." />
+            <marker date="1549196112893" expanded="true" signature="13168:13169" ph="..." />
           </folding>
         </state>
       </provider>

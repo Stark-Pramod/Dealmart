@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 User=get_user_model()
 import django_filters.rest_framework
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status,filters
 from rest_framework import generics,viewsets,mixins
 from rest_framework.views import APIView
@@ -256,7 +257,7 @@ class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsSellerOrReadOnly,IsOwnerOrReadOnly)
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter,DjangoFilterBackend)
     search_fields = ('^name','^category__category','^subcategory__subcategory',)
     filter_fields = ('category__category', 'subcategory__subcategory')
 
