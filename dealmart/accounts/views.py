@@ -258,7 +258,7 @@ class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsSellerOrReadOnly,IsOwnerOrReadOnly)
     filter_backends = (filters.SearchFilter,DjangoFilterBackend)
-    search_fields = ('^name','^category__category','^subcategory__subcategory',)
+    search_fields = ('=name','=category__category','=subcategory__subcategory',)
     filter_fields = ('category__category', 'subcategory__subcategory')
 
 
@@ -270,6 +270,13 @@ class ProductView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class CategoryView(generics.ListAPIView):
+    serializer_class = CategorySerializer
+    permission_classes = (permissions.AllowAny,)
+    queryset = Category.objects.all()
+
 
 class SubcategoryView(generics.CreateAPIView):
     serializer_class = ListSubcategorySerializer
@@ -362,3 +369,42 @@ class PaymentView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
+class RatingView(APIView):
+    serializer_class = RatingSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self,*args,**kwargs):
+        product_id = self.kwargs['product_id']
+        all_rating = Rating.objects.all()
+        total_rating = all_rating.count()
+        avg_rating = 0
+        rating_count = 0
+        for rate in all_rating:
+            rating_count += rate.star
+        avg_rating = rating_count/(total_rating+1)
+        if not  self.request.user.is_anonymous:
+            try:
+                rated = Rating.objects.get(user=self.request.user,product=product_id)
+            except (Rating.DoesNotExist):
+                rated =None
+            if rated is None:
+                return Response({'status':False,'avg_rating':avg_rating})
+            return Response({'status':True,'avg_rating':avg_rating})
+        else:
+            return Response({'avg_rating':avg_rating})
+
+    def post(self,request,*args,**kwargs):
+        product_id = self.kwargs['product_id']
+        try:
+            rated = Rating.objects.get(user=self.request.user,product=product_id)
+        except (Rating.DoesNotExist):
+            rated =None
+        if rated is None:
+            rating = RatingSerializer(data=request.data,many=True)
+            if rating.is_valid(raise_exception=True):
+                rating.save(user=request.user,product=product_id)
+                return Response("rated")
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

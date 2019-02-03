@@ -229,7 +229,6 @@ class ListSubcategorySerializer(serializers.Serializer):
                 self.fields['subcategory'] = serializers.ChoiceField(
                                              choices=get_choices(category=category_choice))
 
-
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
     # subcategory_chosen = ListSubcategorySerializer()
@@ -257,6 +256,12 @@ class ProductSerializer(serializers.ModelSerializer):
         else:
             return data
 
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
 
 class CartSerializer(serializers.ModelSerializer):
 
@@ -280,3 +285,11 @@ class PaymentSerializer(serializers.ModelSerializer):
         model = Payment
         fields = '__all__'
         read_only_fields = ('user',)
+
+
+class RatingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rating
+        fields = '__all__'
+        read_only_fields = ('user','product',)
