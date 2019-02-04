@@ -9,7 +9,6 @@ class Role(models.Model):
     """
     this is defined to allot a role to a user.
     """
-
     id = models.AutoField(primary_key=True)
     role = models.CharField(max_length=20,unique=True)
 

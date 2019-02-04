@@ -271,6 +271,9 @@ class ProductView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    @action(methods=['GET'],detail=True)
+    def feedback =
+
 
 class CategoryView(generics.ListAPIView):
     serializer_class = CategorySerializer
@@ -416,12 +419,12 @@ class FeedbackView(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
     lookup_url_kwarg = 'product_id'
 
-    # def get_queryset(self):
-    #     if self.kwargs['product_id']:
-    #         product_id=self.kwargs['product_id']
-    #         return Feedback.objects.filter(product=product_id)
-    #     else:
-    #         return Response("wrong request")
+    def get_queryset(self):
+        if self.kwargs['product_id']:
+            product_id=self.kwargs['product_id']
+            return Feedback.objects.filter(product=product_id)
+        else:
+            return Response("wrong request")
 
     # def list(self, request, *args, **kwargs):
     #     product = self.kwargs['product_id']
