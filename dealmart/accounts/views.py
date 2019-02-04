@@ -256,9 +256,9 @@ class SellerDetailsView(viewsets.ModelViewSet):
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = (permissions.IsAuthenticated,IsSellerOrReadOnly,IsOwnerOrReadOnly)
+    permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly)
     filter_backends = (filters.SearchFilter,DjangoFilterBackend)
-    search_fields = ('=name','=category__category','=subcategory__subcategory',)
+    search_fields = ('^name','^category__category','^subcategory__subcategory',)
     filter_fields = ('category__category', 'subcategory__subcategory')
 
 
@@ -272,7 +272,12 @@ class ProductView(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     @action(methods=['GET'],detail=True)
-    def feedback =
+    def feedback(self,*args,**kwargs):
+        product = self.kwargs['pk']
+        feedback_list = Feedback.objects.filter(product=product)
+        serializer = FeedbackSerializer(data=feedback_list,many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
 
 
 class CategoryView(generics.ListAPIView):
