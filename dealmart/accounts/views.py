@@ -258,15 +258,15 @@ class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly)
     filter_backends = (filters.SearchFilter,DjangoFilterBackend)
-    search_fields = ('^name','^category__category','^subcategory__subcategory',)
+    search_fields = ('name','category__category','subcategory__subcategory',)
     filter_fields = ('category__category', 'subcategory__subcategory')
 
+    def get_serializer_class(self):
+        if self.action == 'submit_feedback':
+            return FeedbackSerializer
+        else:
+            return ProductSerializer
 
-    # def list(self, request, *args, **kwargs):
-    #     product = Product.objects.filter(user=request.user)
-    #     serializer = ProductSerializer(data=product,many=True)
-    #     serializer.is_valid()
-    #     return Response(serializer.data)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -278,6 +278,14 @@ class ProductView(viewsets.ModelViewSet):
         serializer = FeedbackSerializer(data=feedback_list,many=True)
         serializer.is_valid()
         return Response(serializer.data)
+
+    @action(methods=['POST'],detail=True)
+    def submit_feedback(self,*args,**kwargs):
+        product = self.kwargs['pk']
+        feedback = FeedbackSerializer(data=self.request.data)
+        feedback.is_valid()
+        feedback.save(user=self.request.user,product_id=product)
+        return Response(feedback.data)
 
 
 class CategoryView(generics.ListAPIView):
@@ -366,6 +374,7 @@ class OrderView(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         pass
 
+
 class PaymentView(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
@@ -382,6 +391,10 @@ class RatingView(APIView):
     serializer_class = RatingSerializer
     permission_classes = (permissions.AllowAny,)
 
+    @action(methods=['POST'],detail=True)
+    def hello(self,*args,**kwargs):
+        return Response("hello")
+
     def get(self,*args,**kwargs):
         product_id = self.kwargs['product_id']
         all_rating = Rating.objects.all()
@@ -391,7 +404,7 @@ class RatingView(APIView):
         for rate in all_rating:
             rating_count += rate.star
         avg_rating = rating_count/(total_rating+1)
-        if not  self.request.user.is_anonymous:
+        if not self.request.user.is_anonymous:
             try:
                 rated = Rating.objects.get(user=self.request.user,product=product_id)
             except (Rating.DoesNotExist):
@@ -404,14 +417,15 @@ class RatingView(APIView):
 
     def post(self,request,*args,**kwargs):
         product_id = self.kwargs['product_id']
+        product = Product.objects.get(id=product_id)
         try:
-            rated = Rating.objects.get(user=self.request.user,product=product_id)
+            rated = Rating.objects.get(user=self.request.user,product=product)
         except (Rating.DoesNotExist):
             rated =None
         if rated is None:
-            rating = RatingSerializer(data=request.data,many=True)
+            rating = RatingSerializer(data=request.data)
             if rating.is_valid(raise_exception=True):
-                rating.save(user=request.user,product=product_id)
+                rating.save(user=request.user,product=product)
                 return Response("rated")
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -422,14 +436,11 @@ class FeedbackView(viewsets.ModelViewSet):
     serializer_class = FeedbackSerializer
     queryset = Feedback.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
-    lookup_url_kwarg = 'product_id'
+    # lookup_url_kwarg = 'product_id'
 
-    def get_queryset(self):
-        if self.kwargs['product_id']:
-            product_id=self.kwargs['product_id']
-            return Feedback.objects.filter(product=product_id)
-        else:
-            return Response("wrong request")
+    def list(self, request, *args, **kwargs):
+        return Response(None)
 
-    # def list(self, request, *args, **kwargs):
-    #     product = self.kwargs['product_id']
+    def create(self, request, *args, **kwargs):
+        pass
+        return Response(None)
