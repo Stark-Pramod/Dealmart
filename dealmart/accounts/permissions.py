@@ -11,6 +11,7 @@ class IsUser(permissions.BasePermission):
         else:
             return False
 
+
 class IsNotActive(permissions.BasePermission):
     """
     checking if user is already active or not.
@@ -19,6 +20,7 @@ class IsNotActive(permissions.BasePermission):
         if request.user.is_active == True:
              return False
         return True
+
 
 class IsOwner(permissions.BasePermission):
     """

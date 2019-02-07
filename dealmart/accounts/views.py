@@ -60,15 +60,8 @@ class Activate(APIView):
     """
     Activate verifies the stored otp and the otp entered by user.
     """
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,IsNotActive)
     serializer_class = OTPSerializer
-
-    def get(self,request,user_id,*args,**kwargs):
-        user =User.objects.filter(id=user_id)
-        if user:
-            return Response({'status':'Not Allowed'})
-        else:
-            return Response({'status':'allowed'})
 
     def post(self,request,user_id,*args,**kwargs):
         code = OTPSerializer(data=request.data)
@@ -94,7 +87,7 @@ class Activate(APIView):
             receiver.is_active = True
             receiver.save()
             Cart.objects.create(user=receiver)
-            login(request, receiver)
+            # login(request, receiver)
             otp.delete()
             return Response({'message': 'Thank you for Email Verification you are successfully logged in'},
                             status=status.HTTP_200_OK)
@@ -286,6 +279,27 @@ class ProductView(viewsets.ModelViewSet):
         feedback.is_valid()
         feedback.save(user=self.request.user,product_id=product)
         return Response(feedback.data)
+    #
+    # @action(methods=['get'],detail=True)
+    # def rating(self,*args,**kwargs):
+    #     product_id = self.kwargs['product_id']
+    #     all_rating = Rating.objects.all()
+    #     total_rating = all_rating.count()
+    #     avg_rating = 0
+    #     rating_count = 0
+    #     for rate in all_rating:
+    #         rating_count += rate.star
+    #     avg_rating = rating_count/(total_rating+1)
+    #     if not self.request.user.is_anonymous:
+    #         try:
+    #             rated = Rating.objects.get(user=self.request.user,product=product_id)
+    #         except (Rating.DoesNotExist):
+    #             rated =None
+    #         if rated is None:
+    #             return Response({'status':False,'avg_rating':avg_rating})
+    #         return Response({'status':True,'avg_rating':avg_rating})
+    #     else:
+    #         return Response({'avg_rating':avg_rating})
 
 
 class CategoryView(generics.ListAPIView):
@@ -391,10 +405,6 @@ class RatingView(APIView):
     serializer_class = RatingSerializer
     permission_classes = (permissions.AllowAny,)
 
-    @action(methods=['POST'],detail=True)
-    def hello(self,*args,**kwargs):
-        return Response("hello")
-
     def get(self,*args,**kwargs):
         product_id = self.kwargs['product_id']
         all_rating = Rating.objects.all()
@@ -432,15 +442,15 @@ class RatingView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class FeedbackView(viewsets.ModelViewSet):
-    serializer_class = FeedbackSerializer
-    queryset = Feedback.objects.all()
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
-    # lookup_url_kwarg = 'product_id'
-
-    def list(self, request, *args, **kwargs):
-        return Response(None)
-
-    def create(self, request, *args, **kwargs):
-        pass
-        return Response(None)
+# class FeedbackView(viewsets.ModelViewSet):
+#     serializer_class = FeedbackSerializer
+#     queryset = Feedback.objects.all()
+#     permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
+#     # lookup_url_kwarg = 'product_id'
+#
+#     def list(self, request, *args, **kwargs):
+#         return Response(None)
+#
+#     def create(self, request, *args, **kwargs):
+#         pass
+#         return Response(None)

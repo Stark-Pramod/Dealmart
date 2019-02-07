@@ -15,7 +15,7 @@ router.register(r'product',views.ProductView)
 router.register(r'order',views.OrderView)
 # router.register(r'order/(?P<product_id>[0-9]+)',views.OrderView)
 router.register(r'payment',views.PaymentView)
-router.register(r'feedback',views.FeedbackView)
+# router.register(r'feedback',views.FeedbackView)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
