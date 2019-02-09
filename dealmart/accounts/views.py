@@ -42,8 +42,6 @@ class SignUp(APIView):
         data.save()
         user.is_active = False
         user.save()
-        buyer = Role.objects.get(role='Buyer')
-        user.roles.add(buyer)
         subject = 'Activate Your Dealmart Account'
         message = render_to_string('account_activate.html', {
             'user': user,
@@ -86,6 +84,8 @@ class Activate(APIView):
         if otp.otp == code:
             receiver.is_active = True
             receiver.save()
+            buyer = Role.objects.get(role='Buyer')
+            receiver.roles.add(buyer)
             Cart.objects.create(user=receiver)
             # login(request, receiver)
             otp.delete()

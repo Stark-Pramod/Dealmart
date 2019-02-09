@@ -10,7 +10,7 @@ class Role(models.Model):
     this is defined to allot a role to a user.
     """
     id = models.AutoField(primary_key=True)
-    role = models.CharField(max_length=20,unique=True)
+    role = models.CharField(max_length=20,unique=True,default="Buyer")
 
     def __str__(self):
         return '%s'%(self.role)
@@ -118,12 +118,22 @@ class Subcategory(models.Model):
          unique_together = ('category', 'subcategory')
 
     def __str__(self):
-        return "%s"%(self.subcategory)
+        return "%s_%s"%(self.category,self.subcategory)
+
+
+class SubSubCategory(models.Model):
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(Subcategory,on_delete=models.CASCADE)
+    subsubcategory = models.CharField(max_length=30,null=False,blank=False)
+
+    def __str__(self):
+        return "%s_%s"%(self.subcategory,self.subsubcategory)
 
 
 class Product(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory,on_delete=models.CASCADE)
+    subsubcategory = models.ForeignKey(SubSubCategory,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=15,null=False,blank=False)
     quantity = models.IntegerField(null=False,blank=True)
@@ -140,6 +150,7 @@ class Cart(models.Model):
 
     def __str__(self):
         return "this is %s cart"%(self.user.username)
+
 
 class Payment(models.Model):
     card_choice = (
