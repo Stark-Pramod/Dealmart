@@ -6,7 +6,7 @@ from .models import *
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
 from rest_framework.validators import UniqueTogetherValidator
-
+from django.db.models import Q
 
 class UserSerializer(serializers.ModelSerializer):
     """
@@ -207,7 +207,7 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
 #     return choice_list
 
 
-def get_choices(category):
+def get_subchoices(category):
     # category = self.kwargs['category']
         # category_choice = Category.objects.get(category=category)
         subcats = Subcategory.objects.filter(category=category)
@@ -227,7 +227,28 @@ class ListSubcategorySerializer(serializers.Serializer):
                 category_choice = None
             if category_choice is not None:
                 self.fields['subcategory'] = serializers.ChoiceField(
-                                             choices=get_choices(category=category_choice))
+                                             choices=get_subchoices(category=category_choice))
+
+
+def get_subsubchoices(subcategory,category):
+    # category = self.kwargs['category']
+    # category_choice = Category.objects.get(category=category)
+    subsubcats = SubSubCategory.objects.filter(Q(subcategory__subcategory=subcategory)&Q(category__category=category))
+    choice = [(subsubcat.subsubcategory,subsubcat.subsubcategory.capitalize()) for subsubcat in subsubcats]
+    return choice
+
+
+class ListSubSubCategorySerializer(serializers.Serializer):
+
+    def __init__(self, *args, **kwargs):
+        super(ListSubSubCategorySerializer, self).__init__(*args,**kwargs)
+        if self.context:
+            subcategory = self.context['subcategory']
+            category = self.context['category']
+            self.fields['subsubcategory'] = serializers.ChoiceField(
+                      choices=get_subsubchoices(subcategory=subcategory,category=category))
+
+
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
@@ -236,7 +257,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-        read_only_fields = ('user','subcategory')
+        read_only_fields = ('user',)
 
     def create(self, validated_data):
         # subcategory_data = validated_data.pop('subcategory')
@@ -255,6 +276,7 @@ class ProductSerializer(serializers.ModelSerializer):
             raise ValidationError('Image too large.Size should not exceed 50 MB')
         else:
             return data
+
 
 class CategorySerializer(serializers.ModelSerializer):
 
