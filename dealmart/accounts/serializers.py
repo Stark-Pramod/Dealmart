@@ -285,6 +285,19 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SubCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Subcategory
+        fields = '__all__'
+
+class SubSubCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SubSubCategory
+        fields = '__all__'
+
+
 class CartSerializer(serializers.ModelSerializer):
 
     class Meta:

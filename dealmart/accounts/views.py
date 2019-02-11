@@ -262,8 +262,27 @@ class ProductView(viewsets.ModelViewSet):
         else:
             return ProductSerializer
 
-    # def list(self, request, *args, **kwargs):
-    #     product = Product.objects.all
+    def list(self, request, *args, **kwargs):
+        products = Product.objects.all()
+        serializer = ProductSerializer(data=products,many=True)
+        serializer.is_valid()
+        for product in serializer.data:
+            category_id = product['category']
+            subcategory_id = product['subcategory']
+            subsubcategory_id = product['subsubcategory']
+            category = Category.objects.filter(id=category_id)
+            subcategory = Subcategory.objects.filter(id=subcategory_id)
+            subsubcategory = SubSubCategory.objects.filter(id=subsubcategory_id)
+            category_ser = CategorySerializer(data=category,many=True)
+            subcategory_ser = SubCategorySerializer(data=subcategory,many=True)
+            subsubcategory_ser = SubSubCategorySerializer(data=subsubcategory,many=True)
+            category_ser.is_valid()
+            subcategory_ser.is_valid()
+            subsubcategory_ser.is_valid()
+            product['category'] = category_ser.data[0]
+            product['subcategory'] = subcategory_ser.data[0]
+            product['subsubcategory'] = subsubcategory_ser.data[0]
+        return Response(serializer.data)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
