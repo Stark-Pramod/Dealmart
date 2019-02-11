@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53f67f7-1612-4188-bcf6-c7f43d67a1fe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dealmart/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dealmart/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/views.py" afterDir="false" />
     </list>
@@ -55,13 +54,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="152" />
-          <entry key="py" value="52925" />
+          <entry key="py" value="53117" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="152" />
-          <entry key="Python" value="52925" />
+          <entry key="Python" value="53117" />
         </counts>
       </usages-collector>
     </session>
@@ -88,16 +87,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="283" column="65" selection-start-line="283" selection-start-column="65" selection-end-line="283" selection-end-column="65" />
+            <state relative-caret-position="208">
+              <caret line="264" column="36" selection-start-line="264" selection-start-column="36" selection-end-line="264" selection-end-column="36" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <marker date="1549906581869" expanded="true" signature="874:875" ph="..." />
-                <marker date="1549906581869" expanded="true" signature="1041:1047" ph="..." />
-                <marker date="1549906581869" expanded="true" signature="2295:2300" ph="..." />
-                <marker date="1549906581869" expanded="true" signature="8745:8751" ph="..." />
-                <marker date="1549906581869" expanded="true" signature="9859:11255" ph="..." />
-                <marker date="1549906581869" expanded="true" signature="10121:11255" ph="..." />
+                <marker date="1549907012056" expanded="true" signature="874:875" ph="..." />
+                <marker date="1549907012056" expanded="true" signature="1041:1047" ph="..." />
+                <marker date="1549907012056" expanded="true" signature="2295:2300" ph="..." />
+                <marker date="1549907012056" expanded="true" signature="8745:8751" ph="..." />
+                <marker date="1549907012056" expanded="true" signature="9859:10157" ph="..." />
+                <marker date="1549907012056" expanded="true" signature="10151:10157" ph="..." />
               </folding>
             </state>
           </provider>
@@ -135,12 +134,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="290" column="27" selection-start-line="290" selection-start-column="27" selection-end-line="290" selection-end-column="27" />
+            <state relative-caret-position="154">
+              <caret line="299" column="55" selection-start-line="299" selection-start-column="55" selection-end-line="299" selection-end-column="55" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
-                <marker date="1549906193414" expanded="true" signature="344:346" ph="..." />
-                <marker date="1549906193414" expanded="true" signature="9727:9733" ph="..." />
+                <marker date="1549906912379" expanded="true" signature="344:346" ph="..." />
+                <marker date="1549906912379" expanded="true" signature="9861:10057" ph="..." />
               </folding>
             </state>
           </provider>
@@ -451,28 +450,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="290" column="27" selection-start-line="290" selection-start-column="27" selection-end-line="290" selection-end-column="27" />
+        <state relative-caret-position="154">
+          <caret line="299" column="55" selection-start-line="299" selection-start-column="55" selection-end-line="299" selection-end-column="55" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
-            <marker date="1549906193414" expanded="true" signature="344:346" ph="..." />
-            <marker date="1549906193414" expanded="true" signature="9727:9733" ph="..." />
+            <marker date="1549906912379" expanded="true" signature="344:346" ph="..." />
+            <marker date="1549906912379" expanded="true" signature="9861:10057" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="283" column="65" selection-start-line="283" selection-start-column="65" selection-end-line="283" selection-end-column="65" />
+        <state relative-caret-position="208">
+          <caret line="264" column="36" selection-start-line="264" selection-start-column="36" selection-end-line="264" selection-end-column="36" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <marker date="1549906581869" expanded="true" signature="874:875" ph="..." />
-            <marker date="1549906581869" expanded="true" signature="1041:1047" ph="..." />
-            <marker date="1549906581869" expanded="true" signature="2295:2300" ph="..." />
-            <marker date="1549906581869" expanded="true" signature="8745:8751" ph="..." />
-            <marker date="1549906581869" expanded="true" signature="9859:11255" ph="..." />
-            <marker date="1549906581869" expanded="true" signature="10121:11255" ph="..." />
+            <marker date="1549907012056" expanded="true" signature="874:875" ph="..." />
+            <marker date="1549907012056" expanded="true" signature="1041:1047" ph="..." />
+            <marker date="1549907012056" expanded="true" signature="2295:2300" ph="..." />
+            <marker date="1549907012056" expanded="true" signature="8745:8751" ph="..." />
+            <marker date="1549907012056" expanded="true" signature="9859:10157" ph="..." />
+            <marker date="1549907012056" expanded="true" signature="10151:10157" ph="..." />
           </folding>
         </state>
       </provider>

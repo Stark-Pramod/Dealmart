@@ -277,7 +277,6 @@ class ProductSerializer(serializers.ModelSerializer):
         else:
             return data
 
-
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -296,6 +295,18 @@ class SubSubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = SubSubCategory
         fields = '__all__'
+
+
+class ListProductSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    subcategory = SubCategorySerializer()
+    subsubcategory = SubSubCategorySerializer()
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
 
 
 class CartSerializer(serializers.ModelSerializer):
