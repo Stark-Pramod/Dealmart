@@ -28,7 +28,6 @@ urlpatterns = [
     url(r'^api/cart/$',views.CartView.as_view()),
     url(r'^api/cart/(?P<product_id>[0-9]+)/$',views.AddOrRemoveToCartView.as_view()),
     url(r'^api/category/$',views.CategoryView.as_view()),
-    # url(r'^api/rating/(?P<product_id>[0-9]+)/$',views.RatingView.as_view()),
     url(r'^api/(?P<category>[0-9 a-z A-Z]+)/$',views.SubcategoryView.as_view()),
     url(r'^api/(?P<category>[0-9 a-z A-Z]+)/(?P<subcategory>[0-9 a-z A-Z]+)/$',views.SubSubcategoryView.as_view()),
     url(r'^docs/', include_docs_urls(title='My API title'))

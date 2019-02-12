@@ -306,6 +306,14 @@ class ListProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+class ListHomeSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    subcategory = SubCategorySerializer()
+
+    class Meta:
+        model = SubSubCategory
+        fields = '__all__'
+
 
 
 
