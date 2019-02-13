@@ -11,7 +11,6 @@ def EmailOrUsername(self,uname_or_em,password):
     :return:
     """
     for user in User.objects.all():
-        print(user)
         if user.email == uname_or_em and user.is_active == True:
             email = uname_or_em
             username=None

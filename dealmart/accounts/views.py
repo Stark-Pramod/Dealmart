@@ -151,7 +151,9 @@ class Login(APIView):
         else:
             if user.is_active:
                 login(request, user)
-                return Response({'detail':'successfully Logged in!','user_id': user.id})
+                return Response({'detail':'successfully Logged in!','user_id': user.id,
+                                 'username':user.username},
+                                status=status.HTTP_200_OK)
             else:
                 return Response({'error':'Please! varify Your Email First','user_id':user.id},
                                     status=status.HTTP_406_NOT_ACCEPTABLE)
