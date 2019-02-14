@@ -86,7 +86,7 @@ class Activate(APIView):
             receiver.save()
             buyer = Role.objects.get(role='Buyer')
             receiver.roles.add(buyer)
-            Cart.objects.create(user=receiver)
+            # Cart.objects.create(user=receiver)
             # login(request, receiver)
             otp.delete()
             return Response({'message': 'Thank you for Email Verification you are successfully logged in'},
@@ -333,6 +333,8 @@ class CategoryView(generics.ListAPIView):
 
 class SubcategoryView(generics.CreateAPIView):
     serializer_class = ListSubcategorySerializer
+    permission_classes = (permissions.AllowAny,)
+    # queryset = Subcategory.objects.all()
 
     def get_serializer_context(self):
         category = self.kwargs['category']
@@ -341,6 +343,8 @@ class SubcategoryView(generics.CreateAPIView):
 
 class SubSubcategoryView(generics.CreateAPIView):
     serializer_class = ListSubSubCategorySerializer
+    permission_classes = (permissions.AllowAny,)
+    # queryset = SubSubCategory.objects.all()
 
     def get_serializer_context(self):
         subcategory = self.kwargs['subcategory']

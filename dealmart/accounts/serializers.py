@@ -141,71 +141,6 @@ class SellerDetailsSerializer(serializers.ModelSerializer):
     #     else:
     #         return data
 
-#
-# def get_my_choices(category):
-#
-#     if category == "electronics":
-#         choice_list = (
-#             ('mobile','Mobile'),
-#             ('Laptop','Laptop'),
-#             ('earphone','Earphone'),
-#             ('speaker','Speaker'),
-#             ('air_conditioner','Air Conditioner'),
-#             ('washing_machine','Washing Machine'),
-#             ('water_pump','Water Pump'),
-#             ('hair_drier','Hair Drier'),
-#             ('projector','Projector'),
-#             ('desktop','Desktop'),
-#             ('cpu','CPU'),
-#             ('mouse','Mouse'),
-#             ('keyboard','Keyboard'),
-#             ('other','Other')
-#         )
-#     elif category == 'men':
-#         choice_list = (
-#                 ('shirt','Shirt'),
-#                 ('t-shirt','T-shirt'),
-#                 ('jeans','Jeans'),
-#                 ('pant','Pant'),
-#                 ('trouser','Trouser'),
-#                 ('jacket','Jacket'),
-#                 ('suit','Suit')
-#             )
-#     elif category == 'women':
-#         choice_list = (
-#             ('top','Top'),
-#             ('jeans','Jeans'),
-#             ('saari','Saari'),
-#             ('lehnga','Lehnga'),
-#             ('t-shirt','T-shirt'),
-#             ('suit','Suit'),
-#             ('salwar','Salwar'),
-#         )
-#     elif category == 'kids':
-#         choice_list = (
-#                 ('cap','Cap'),
-#                 ('shirt','Shirt'),
-#                 ('inner_wear','Inner Wear'),
-#                 ('diaper','Diaper'),
-#                 ('t-shirt','T-shirt'),
-#                 ('half-pant','Half Pant'),
-#                 ('full-pant','Full Pant'),
-#                 ('bottle','Bottle')
-#             )
-#     elif category == 'decoration':
-#         choice_list= (
-#             ('vase','Vase'),
-#             ('painting','Painting'),
-#             ('statue','Statue'),
-#             ('curtain','Curtain'),
-#             ('bedsheet','Bedsheet'),
-#         )
-#     else:
-#         choice_list = (
-#             ('others','others')
-#         )
-#     return choice_list
-
 
 def get_subchoices(category):
     # category = self.kwargs['category']
@@ -213,7 +148,6 @@ def get_subchoices(category):
         subcats = Subcategory.objects.filter(category=category)
         choice = [(subcat.subcategory,subcat.subcategory.capitalize()) for subcat in subcats]
         return choice
-
 
 class ListSubcategorySerializer(serializers.Serializer):
 

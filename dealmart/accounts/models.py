@@ -2,6 +2,8 @@
 from djongo import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 # Create your models here.
 
 
@@ -151,6 +153,14 @@ class Cart(models.Model):
     def __str__(self):
         return "this is %s cart"%(self.user.username)
 
+    @receiver(post_save, sender=User)
+    def create_cart(sender, instance, created, **kwargs):
+        if created:
+            Cart.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_cart(sender, instance, **kwargs):
+        instance.cart.save()
 
 class Payment(models.Model):
     card_choice = (
