@@ -330,6 +330,16 @@ class CategoryView(generics.ListAPIView):
     permission_classes = (permissions.AllowAny,)
     queryset = SubSubCategory.objects.all()
 
+    # def get(self, request, *args, **kwargs):
+    #     subsub = SubSubCategory.objects.all()
+    #     subsubcat = SubCategorySerializer(data=subsub,many=True)
+    #     subsubcat.is_valid()
+    #     for subsubcategory in subsubcat.data:
+    #         category = subsubcategory['category']
+    #         sub2cat = subsubcategory['id']
+    #         subsubcategory['category'] = Category.objects.get(id=category).category
+    #         subsubcategory['id'] = SubSubCategory.objects.get(id=sub2cat).subsubcategory
+    #     return Response(subsubcat.data)
 
 class SubcategoryView(generics.CreateAPIView):
     serializer_class = ListSubcategorySerializer
