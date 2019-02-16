@@ -329,6 +329,18 @@ class CategoryView(generics.ListAPIView):
     serializer_class = ListHomeSerializer
     permission_classes = (permissions.AllowAny,)
     queryset = SubSubCategory.objects.all()
+    # def get(self,*args,**kwargs):
+    #     category = Category.objects.all()
+    #     subcategory = Subcategory.objects.all()
+    #     subsubcategory = SubSubCategory.objects.all()
+    #     cat_ser = CategorySerializer(data=category,many=True)
+    #     subcat_ser = SubCategorySerializer(data=subcategory,many=True)
+    #     subsubcat_ser = SubCategorySerializer(data=subsubcategory,many=True)
+    #     cat_ser.is_valid()
+    #     subcat_ser.is_valid()
+    #     subsubcat_ser.is_valid()
+    #     return Response({'category':cat_ser.data,'subcategory':subcat_ser.data,
+    #                      'subsubcategory':subsubcat_ser.data})
 
     # def get(self, request, *args, **kwargs):
     #     subsub = SubSubCategory.objects.all()
