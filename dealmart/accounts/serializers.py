@@ -225,6 +225,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
         model = Subcategory
         fields = '__all__'
 
+
 class SubSubCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -247,7 +248,7 @@ class ListHomeSerializer(serializers.ModelSerializer):
     subcategory = SubCategorySerializer()
 
     class Meta:
-        model = SubSubCategory
+        model = Category
         fields = '__all__'
 
 

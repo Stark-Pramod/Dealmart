@@ -325,33 +325,33 @@ class ProductView(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class CategoryView(generics.ListAPIView):
-    serializer_class = ListHomeSerializer
+class CategoryView(APIView):
+    # serializer_class = ListHomeSerializer
     permission_classes = (permissions.AllowAny,)
-    queryset = SubSubCategory.objects.all()
-    # def get(self,*args,**kwargs):
-    #     category = Category.objects.all()
-    #     subcategory = Subcategory.objects.all()
-    #     subsubcategory = SubSubCategory.objects.all()
-    #     cat_ser = CategorySerializer(data=category,many=True)
-    #     subcat_ser = SubCategorySerializer(data=subcategory,many=True)
-    #     subsubcat_ser = SubCategorySerializer(data=subsubcategory,many=True)
-    #     cat_ser.is_valid()
-    #     subcat_ser.is_valid()
-    #     subsubcat_ser.is_valid()
-    #     return Response({'category':cat_ser.data,'subcategory':subcat_ser.data,
-    #                      'subsubcategory':subsubcat_ser.data})
 
-    # def get(self, request, *args, **kwargs):
-    #     subsub = SubSubCategory.objects.all()
-    #     subsubcat = SubCategorySerializer(data=subsub,many=True)
-    #     subsubcat.is_valid()
-    #     for subsubcategory in subsubcat.data:
-    #         category = subsubcategory['category']
-    #         sub2cat = subsubcategory['id']
-    #         subsubcategory['category'] = Category.objects.get(id=category).category
-    #         subsubcategory['id'] = SubSubCategory.objects.get(id=sub2cat).subsubcategory
-    #     return Response(subsubcat.data)
+    def get(self, request, *args, **kwargs):
+        category = Category.objects.all()
+        cat = CategorySerializer(data=category,many=True)
+        cat.is_valid()
+        i=0
+        for each_category in cat.data:
+            print(each_category)
+            type = cat.data[i]['category']
+            sub = Subcategory.objects.filter(category__category=type)
+            subcat = SubCategorySerializer(data=sub,many=True)
+            subcat.is_valid()
+            cat.data[i]['subcategory']=subcat.data
+            j=0
+            for each_subcategory in subcat.data:
+                subcat_type = cat.data[i]['subcategory'][j]['subcategory']
+                subsub = SubSubCategory.objects.filter(Q(category__category=type)&Q(subcategory__subcategory=subcat_type))
+                subsubcat = SubSubCategorySerializer(data=subsub,many=True)
+                subsubcat.is_valid()
+                cat.data[i]['subcategory'][j]['subsubcategory']=subsubcat.data
+                j+=1
+            i+=1;
+        return Response(cat.data)
+
 
 class SubcategoryView(generics.CreateAPIView):
     serializer_class = ListSubcategorySerializer
