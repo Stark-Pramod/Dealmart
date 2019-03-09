@@ -247,14 +247,15 @@ class SellerDetailsView(viewsets.ModelViewSet):
         serializer.is_valid()
         return Response(serializer.data)
 
-
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,HomeView)
     filter_backends = (filters.SearchFilter,DjangoFilterBackend)
-    search_fields = ('name','category__category','subcategory__subcategory','subsubcategory__subsubcategory')
-    filter_fields = ('category__category', 'subcategory__subcategory','subsubcategory__subsubcategory')
+    search_fields = ('name','category__category','subcategory__subcategory',
+                     '^subsubcategory__subsubcategory','brand')
+    filter_fields = ('category__category', 'subcategory__subcategory',
+                     'subsubcategory__subsubcategory','brand')
 
 
     def get_serializer_class(self):
