@@ -45,6 +45,11 @@ class UserSerializer(serializers.ModelSerializer):
         else:
             return data
 
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username','id')
 
 class OTPSerializer(serializers.ModelSerializer):
     """
@@ -183,7 +188,6 @@ class ListSubSubCategorySerializer(serializers.Serializer):
                       choices=get_subsubchoices(subcategory=subcategory,category=category))
 
 
-
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(label='Brand/Label')
     # subcategory_chosen = ListSubcategorySerializer()
@@ -237,6 +241,7 @@ class ListProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     subcategory = SubCategorySerializer()
     subsubcategory = SubSubCategorySerializer()
+    user = ProfileSerializer()
 
     class Meta:
         model = Product

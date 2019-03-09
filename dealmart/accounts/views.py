@@ -251,7 +251,7 @@ class SellerDetailsView(viewsets.ModelViewSet):
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,HomeView)
     filter_backends = (filters.SearchFilter,DjangoFilterBackend)
     search_fields = ('name','category__category','subcategory__subcategory','subsubcategory__subsubcategory')
     filter_fields = ('category__category', 'subcategory__subcategory','subsubcategory__subsubcategory')
@@ -335,7 +335,6 @@ class CategoryView(APIView):
         cat.is_valid()
         i=0
         for each_category in cat.data:
-            print(each_category)
             type = cat.data[i]['category']
             sub = Subcategory.objects.filter(category__category=type)
             subcat = SubCategorySerializer(data=sub,many=True)

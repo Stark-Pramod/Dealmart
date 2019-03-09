@@ -137,9 +137,13 @@ class Product(models.Model):
     subcategory = models.ForeignKey(Subcategory,on_delete=models.CASCADE)
     subsubcategory = models.ForeignKey(SubSubCategory,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    name = models.CharField(max_length=15,null=False,blank=False)
-    quantity = models.IntegerField(null=False,blank=True)
-    image = models.ImageField(default='product_pics/download.png',null=False,blank=False,upload_to='product_pics')
+    name = models.CharField(max_length=30,null=False,blank=False)
+    brand = models.CharField(max_length=30,null=False,blank=False,default="Not Available")
+    price = models.IntegerField(null=False,blank=False)
+    image1 = models.ImageField(null=False,blank=False,upload_to='product_pics')
+    image2 = models.ImageField(null=False,blank=False,upload_to='product_pics')
+    image3 = models.ImageField(null=True,blank=True,upload_to='product_pics')
+    image4 = models.ImageField(null=True,blank=True,upload_to='product_pics')
     video = models.FileField(upload_to='product_videos', null=True, blank=True)
 
     def __str__(self):

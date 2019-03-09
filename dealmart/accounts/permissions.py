@@ -100,3 +100,12 @@ class IsSellerOrReadOnly(permissions.BasePermission):
                 return True
             else:
                 return False
+
+
+class HomeView(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        if(view.action=='list'):
+            return True
+        else:
+            return False

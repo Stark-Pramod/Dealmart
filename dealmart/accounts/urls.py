@@ -10,7 +10,7 @@ from rest_framework.documentation import include_docs_urls
 router = DefaultRouter()
 router.register(r'daddress', views.DeliveryAddressView)
 router.register(r'paddress',views.PickupAddressView)
-router.register(r'sdetail',views.SellerDetailsView)
+router.register(r'sdetails',views.SellerDetailsView)
 router.register(r'product',views.ProductView)
 router.register(r'order',views.OrderView)
 # router.register(r'order/(?P<product_id>[0-9]+)',views.OrderView)
