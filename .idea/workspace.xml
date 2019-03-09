@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53f67f7-1612-4188-bcf6-c7f43d67a1fe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/migrations/0002_auto_20190214_1644.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dealmart/dealmart/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/dealmart/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,7 +14,7 @@
     <session id="-1756156536">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="49" />
+          <entry key="project.closed" value="50" />
           <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="18" />
           <entry key="project.open.time.11" value="1" />
@@ -65,24 +56,24 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="152" />
-          <entry key="py" value="56272" />
+          <entry key="py" value="56296" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="152" />
-          <entry key="Python" value="56272" />
+          <entry key="Python" value="56296" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dealmart/dealmart/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+            <state relative-caret-position="403">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
               <folding>
                 <element signature="e#309#318#0" expanded="true" />
               </folding>
@@ -140,7 +131,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/manage.py">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -148,9 +139,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/migrations/0001_initial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3198">
-              <caret lean-forward="true" />
-            </state>
+            <state relative-caret-position="-3198" />
           </provider>
         </entry>
       </file>
@@ -219,8 +208,8 @@
         <option value="$PROJECT_DIR$/dealmart/accounts/views.py" />
         <option value="$PROJECT_DIR$/dealmart/accounts/serializers.py" />
         <option value="$PROJECT_DIR$/dealmart/accounts/urls.py" />
-        <option value="$PROJECT_DIR$/dealmart/dealmart/settings.py" />
         <option value="$PROJECT_DIR$/dealmart/accounts/models.py" />
+        <option value="$PROJECT_DIR$/dealmart/dealmart/settings.py" />
       </list>
     </option>
   </component>
@@ -319,7 +308,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13087249" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13087249" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -330,7 +319,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49530202" visible="true" weight="0.28652483" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49530202" visible="true" weight="0.28652483" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.504698" side_tool="true" weight="0.23404256" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32907802" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -496,19 +485,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/migrations/0001_initial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3198">
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/dealmart/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
-          <folding>
-            <element signature="e#309#318#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-3198" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/models.py">
@@ -531,6 +508,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/manage.py">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/dealmart/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+          <folding>
+            <element signature="e#309#318#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

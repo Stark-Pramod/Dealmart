@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework_jwt',
     'corsheaders',
     'django_filters',
+    'django_cleanup',
     ]
 
 REST_FRAMEWORK = {
