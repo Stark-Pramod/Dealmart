@@ -189,7 +189,7 @@ class ListSubSubCategorySerializer(serializers.Serializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(label='Brand/Label')
+    # name = serializers.CharField(label='Brand/Label')
     # subcategory_chosen = ListSubcategorySerializer()
 
     class Meta:

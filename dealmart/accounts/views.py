@@ -250,7 +250,7 @@ class SellerDetailsView(viewsets.ModelViewSet):
 class ProductView(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,HomeView)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
     filter_backends = (filters.SearchFilter,DjangoFilterBackend)
     search_fields = ('name','category__category','subcategory__subcategory',
                      '^subsubcategory__subsubcategory','brand')
@@ -266,7 +266,7 @@ class ProductView(viewsets.ModelViewSet):
         elif self.action == 'list':
             return ListProductSerializer
         else:
-            return ProductSerializer
+            return ListProductSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -375,16 +375,13 @@ class SubSubcategoryView(generics.CreateAPIView):
 
 
 class CartView(generics.ListAPIView):
-    serializer_class = CartSerializer
+    serializer_class = ListProductSerializer
     queryset = Cart.objects.all()
     permission_classes = (permissions.IsAuthenticated,IsOwner)
 
-    def list(self, request, *args, **kwargs):
-        cart = Cart.objects.get(user=request.user)
-        product_list = Product.objects.filter(cart=cart)
-        serializer = ProductSerializer(data=product_list,many=True)
-        serializer.is_valid()
-        return Response(serializer.data)
+    def get_queryset(self):
+        cart = Cart.objects.get(user=self.request.user)
+        return Product.objects.filter(cart=cart)
 
 
 class AddOrRemoveToCartView(APIView):
@@ -403,7 +400,7 @@ class AddOrRemoveToCartView(APIView):
                 product_selected = None
             if product_selected is not None:
                 cart.product.add(product_selected)
-                return Response({'message':'Added to cart'})
+                return Response({'message':'This item is added to cart'})
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             try:
@@ -412,7 +409,7 @@ class AddOrRemoveToCartView(APIView):
                 product_selected = None
             if product_selected is not None:
                 cart.product.remove(product_selected)
-                return Response({'message':'Removed from cart'})
+                return Response({'message':'This item is removed from cart'})
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -446,5 +443,3 @@ class PaymentView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-
