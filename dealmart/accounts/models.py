@@ -139,7 +139,7 @@ class Product(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=50,null=False,blank=False)
     brand = models.CharField(max_length=30,null=False,blank=False)
-    price = models.IntegerField(null=False,blank=False)
+    price = models.IntegerField(null=False,blank=False,default=0)
     image1 = models.ImageField(null=False,blank=False,upload_to='product_pics')
     image2 = models.ImageField(null=False,blank=False,upload_to='product_pics')
     image3 = models.ImageField(null=True,blank=True,upload_to='product_pics')

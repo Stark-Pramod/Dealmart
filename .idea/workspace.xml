@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f53f67f7-1612-4188-bcf6-c7f43d67a1fe" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Dealmart.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dealmart.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dealmart/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dealmart/dealmart/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dealmart/dealmart/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,69 +13,12 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1756156536">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="51" />
-          <entry key="project.open.time.0" value="4" />
-          <entry key="project.open.time.1" value="18" />
-          <entry key="project.open.time.11" value="3" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.14" value="3" />
-          <entry key="project.open.time.15" value="2" />
-          <entry key="project.open.time.16" value="3" />
-          <entry key="project.open.time.17" value="2" />
-          <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.3" value="2" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="4" />
-          <entry key="project.open.time.7" value="7" />
-          <entry key="project.open.time.8" value="2" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="60" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="html" value="2" />
-          <entry key="jpg" value="1" />
-          <entry key="png" value="3" />
-          <entry key="py" value="129" />
-          <entry key="sqlite3" value="2" />
-          <entry key="txt" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="HTML" value="2" />
-          <entry key="Image" value="4" />
-          <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Python" value="129" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="html" value="152" />
-          <entry key="py" value="56723" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="HTML" value="152" />
-          <entry key="Python" value="56723" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/dealmart/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
+            <state relative-caret-position="486">
               <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
               <folding>
                 <element signature="e#309#318#0" expanded="true" />
@@ -86,23 +27,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-728">
-              <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
+            <state relative-caret-position="468">
+              <caret line="99" column="29" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <marker date="1552394221494" expanded="true" signature="874:875" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="1041:1047" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="2295:2300" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="8865:8871" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="10013:10019" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="10050:10352" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="10346:10352" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="12667:12672" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="12761:12766" ph="..." />
-                <marker date="1552394221494" expanded="true" signature="14734:14743" ph="..." />
               </folding>
             </state>
           </provider>
@@ -111,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/permissions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="1818">
               <caret line="102" selection-start-line="102" selection-end-line="102" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
@@ -123,27 +54,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
+            <state relative-caret-position="3240">
               <caret line="181" column="13" selection-start-line="181" selection-start-column="13" selection-end-line="181" selection-end-column="13" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
-                <marker date="1552227523566" expanded="true" signature="344:346" ph="..." />
-                <marker date="1552227523566" expanded="true" signature="2064:2139" ph="..." />
-                <marker date="1552227523566" expanded="true" signature="7929:8359" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="197" column="37" lean-forward="true" selection-start-line="197" selection-start-column="37" selection-end-line="197" selection-end-column="37" />
+            <state relative-caret-position="329">
+              <caret line="140" column="64" selection-start-line="140" selection-start-column="64" selection-end-line="140" selection-end-column="64" />
               <folding>
                 <element signature="e#31#56#0" expanded="true" />
-                <marker date="1552246068021" expanded="true" signature="2170:2175" ph="..." />
-                <marker date="1552246068021" expanded="true" signature="3883:4027" ph="..." />
               </folding>
             </state>
           </provider>
@@ -160,11 +86,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dealmart/db.sqlite3">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/dealmart/wsgi.py">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -172,7 +93,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dealmart/accounts/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-182">
+            <state relative-caret-position="90">
               <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
@@ -221,9 +142,9 @@
         <option value="$PROJECT_DIR$/dealmart/accounts/urls.py" />
         <option value="$PROJECT_DIR$/dealmart/accounts/serializers.py" />
         <option value="$PROJECT_DIR$/dealmart/accounts/permissions.py" />
-        <option value="$PROJECT_DIR$/dealmart/accounts/models.py" />
         <option value="$PROJECT_DIR$/dealmart/accounts/views.py" />
         <option value="$PROJECT_DIR$/dealmart/dealmart/settings.py" />
+        <option value="$PROJECT_DIR$/dealmart/accounts/models.py" />
       </list>
     </option>
   </component>
@@ -238,6 +159,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,28 +178,15 @@
               <item name="dealmart" type="462c0819:PsiDirectoryNode" />
               <item name="accounts" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Dealmart" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dealmart" type="462c0819:PsiDirectoryNode" />
-              <item name="dealmart" type="462c0819:PsiDirectoryNode" />
-              <item name="accounts" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dealmart" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dealmart" type="462c0819:PsiDirectoryNode" />
-              <item name="dealmart" type="462c0819:PsiDirectoryNode" />
-              <item name="dealmart" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -307,10 +216,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="83" y="-1" width="1838" height="1082" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13489933" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13485016" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -321,7 +229,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49530202" visible="true" weight="0.25531915" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49530202" visible="true" weight="0.24762908" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.504698" side_tool="true" weight="0.23404256" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32907802" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -331,12 +239,8 @@
       <window_info anchor="right" id="R Packages" order="4" />
     </layout>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dealmart/buyer/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/requirements.txt" />
     <entry file="file://$PROJECT_DIR$/dealmart/requirements.txt" />
     <entry file="file://$PROJECT_DIR$/dealmart/buyer/migrations/__init__.py" />
     <entry file="file://$PROJECT_DIR$/dealmart/buyer/templates/account_activate.html" />
@@ -412,31 +316,10 @@
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/migrations/0002_auto_20190309_1527.py" />
     <entry file="file://$PROJECT_DIR$/dealmart/media/product_pics/download_qLillAp.png" />
     <entry file="file://$PROJECT_DIR$/dealmart/media/product_pics/pp_G8lPwub.jpg" />
-    <entry file="file://$PROJECT_DIR$/dealmart/manage.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/accounts/migrations/0001_initial.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/db.sqlite3">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/dealmart/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/accounts/permissions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/db.sqlite3" />
     <entry file="file://$PROJECT_DIR$/dealmart/dealmart/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
+        <state relative-caret-position="486">
           <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
           <folding>
             <element signature="e#309#318#0" expanded="true" />
@@ -444,21 +327,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/accounts/models.py">
+    <entry file="file://$PROJECT_DIR$/dealmart/accounts/permissions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="197" column="37" lean-forward="true" selection-start-line="197" selection-start-column="37" selection-end-line="197" selection-end-column="37" />
+        <state relative-caret-position="1818">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
           <folding>
-            <element signature="e#31#56#0" expanded="true" />
-            <marker date="1552246068021" expanded="true" signature="2170:2175" ph="..." />
-            <marker date="1552246068021" expanded="true" signature="3883:4027" ph="..." />
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/accounts/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3240">
+          <caret line="181" column="13" selection-start-line="181" selection-start-column="13" selection-end-line="181" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/manage.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/accounts/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/dealmart/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/dealmart/accounts/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-182">
+        <state relative-caret-position="90">
           <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
@@ -466,35 +366,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/accounts/serializers.py">
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="181" column="13" selection-start-line="181" selection-start-column="13" selection-end-line="181" selection-end-column="13" />
+        <state relative-caret-position="468">
+          <caret line="99" column="29" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
-            <marker date="1552227523566" expanded="true" signature="344:346" ph="..." />
-            <marker date="1552227523566" expanded="true" signature="2064:2139" ph="..." />
-            <marker date="1552227523566" expanded="true" signature="7929:8359" ph="..." />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dealmart/accounts/views.py">
+    <entry file="file://$PROJECT_DIR$/dealmart/accounts/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-728">
-          <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
+        <state relative-caret-position="329">
+          <caret line="140" column="64" selection-start-line="140" selection-start-column="64" selection-end-line="140" selection-end-column="64" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1552394221494" expanded="true" signature="874:875" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="1041:1047" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="2295:2300" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="8865:8871" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="10013:10019" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="10050:10352" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="10346:10352" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="12667:12672" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="12761:12766" ph="..." />
-            <marker date="1552394221494" expanded="true" signature="14734:14743" ph="..." />
+            <element signature="e#31#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
