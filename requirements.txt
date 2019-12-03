@@ -18,7 +18,7 @@ django-phonenumber-field==2.0.1
 djangorestframework==3.9.0
 djangorestframework-jwt==1.11.0
 djongo==1.2.30
-ecdsa==0.13
+ecdsa==0.13.3
 future==0.17.1
 httpie==1.0.0
 idna==2.7
