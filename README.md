@@ -30,3 +30,15 @@ An e-commerce webite
    2.4) Update products details.
    
    2.5) Generate billing details.
+
+# Screens
+1) Sign-up / Login
+
+<img width="1280" alt="Screenshot 2021-06-22 at 2 18 17 PM" src="https://user-images.githubusercontent.com/40461158/122894588-f5440c80-d364-11eb-841d-d975a41090f0.png">
+
+2) Landing page
+   ![image](https://user-images.githubusercontent.com/40461158/122898223-54efe700-d368-11eb-8918-7d56128bd892.png)
+
+4) Inner page
+![image](https://user-images.githubusercontent.com/40461158/122896318-941d3880-d366-11eb-95db-f428a5c17132.png)
+
